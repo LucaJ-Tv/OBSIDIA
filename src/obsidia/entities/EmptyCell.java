@@ -1,7 +1,6 @@
 package obsidia.entities;
 
 import obsidia.utilities.Coordinates;
-import obsidia.map.GameMap;
 
 public class EmptyCell implements Cells{
 
