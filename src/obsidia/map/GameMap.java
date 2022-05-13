@@ -14,16 +14,20 @@ public class GameMap {
 		GameMap.put(entity.getCoordinates(), entity);
 	}
 	
-	public Class<? extends Cells> getEntity(final Coordinates xy) {
-		return GameMap.get(xy).getClass();
-	}
-	
 	public int getDefence(final Coordinates xy) {
 		return GameMap.get(xy).getDefence();
 	}
 
 	public String getOwner(final Coordinates xy) {
 		return GameMap.get(xy).getOwner();
+	}
+	
+	public Class<? extends Cells> getEntity(final Coordinates xy) {
+		return GameMap.get(xy).getClass();
+	}
+	
+	public int getBalance(final Coordinates xy) {
+		return GameMap.get(xy).getBalance();
 	}
 	
 	public int getIdBalance(final String ID){
@@ -34,10 +38,6 @@ public class GameMap {
 			}
 		}
 		return balance;
-	}
-	
-	public int getBalance(final Coordinates xy) {
-		return GameMap.get(xy).getBalance();
 	}
 
 }
