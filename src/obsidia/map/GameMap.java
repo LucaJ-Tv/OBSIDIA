@@ -14,6 +14,10 @@ public class GameMap {
 		GameMap.put(entity.getCoordinates(), entity);
 	}
 	
+	public Class<? extends Cells> getEntity(final Coordinates xy) {
+		return GameMap.get(xy).getClass();
+	}
+	
 	public int getDefence(final Coordinates xy) {
 		return GameMap.get(xy).getDefence();
 	}
