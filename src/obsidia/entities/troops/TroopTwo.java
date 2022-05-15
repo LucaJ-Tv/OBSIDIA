@@ -1,9 +1,9 @@
 package obsidia.entities.troops;
 
-import obsidia.entities.EmptyCell;
+import obsidia.entities.AbstractCell;
 import obsidia.utilities.Coordinates;
 
-public class TroopTwo extends EmptyCell implements Troop {
+public class TroopTwo extends AbstractCell implements Troop {
 
 	private static final int COST = 5;
 	private static final int BALANCE = -6;
