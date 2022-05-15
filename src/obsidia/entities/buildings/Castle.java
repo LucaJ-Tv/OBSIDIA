@@ -1,21 +1,20 @@
 package obsidia.entities.buildings;
 
+import obsidia.entities.AbstractCell;
 import obsidia.utilities.Coordinates;
 
 public class Castle extends AbstractCell{
 
 	/*
-	 * Concrete Class Castle
+	 * Entity Castle
 	 */
+	private final int BALANCE = 0;
+	private final int DEFENCE = 4;
 	private boolean isAlive = true;
 	
 	public Castle(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
 	}
-	/*public Castle(String ownerID, Coordinates xy) {
-		//super(ownerID, xy, 3, 5);
-		this.isAlive = true;
-	}*/
 	
 	public boolean isAlive() {
 		return this.isAlive;
@@ -27,11 +26,11 @@ public class Castle extends AbstractCell{
 
 	@Override
 	public int getBalance() {
-		return 0;
+		return this.BALANCE;
 	}
 
 	@Override
 	public int getDefence() {
-		return 4;
+		return this.DEFENCE;
 	}
 }

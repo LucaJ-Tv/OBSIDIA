@@ -1,38 +1,28 @@
 package obsidia.entities.buildings;
 
+import obsidia.entities.AbstractCell;
 import obsidia.utilities.Coordinates;
 
 public class Farm extends AbstractCell{
 	
 	/*
-	 * Concrete Class Farm
+	 * Entity Farm
 	 */
+	private final int BALANCE = 6;
+	private final int DEFENCE = 0;
+	//private final int COST = ;
 
 	public Farm(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
 	}
 	
-	/*
 	@Override
 	public int getBalance() {
-		return 6;
+		return this.BALANCE;
 	}
-	*/
-
 	@Override
 	public int getDefence() {
-		return 0;
+		return this.DEFENCE;
 	}
-
-	@Override
-	public int getBalance() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getBalace() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 }
