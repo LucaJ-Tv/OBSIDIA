@@ -1,4 +1,4 @@
-package obsidia.entities;
+package obsidia.map;
 
 import obsidia.utilities.Coordinates;
 

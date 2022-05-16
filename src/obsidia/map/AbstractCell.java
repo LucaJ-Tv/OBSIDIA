@@ -1,6 +1,5 @@
-package obsidia.entities;
+package obsidia.map;
 
-import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
 
 public abstract class AbstractCell implements Cells{

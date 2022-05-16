@@ -1,6 +1,6 @@
 package obsidia.entities.troops;
 
-import obsidia.entities.AbstractCell;
+import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
 public class TroopTwo extends AbstractCell implements Troop {

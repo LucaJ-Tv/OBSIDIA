@@ -1,6 +1,6 @@
 package obsidia.entities.towers;
 
-import obsidia.entities.AbstractCell;
+import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
 public class TowerTwo extends AbstractCell implements Tower{
