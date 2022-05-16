@@ -1,6 +1,6 @@
 package obsidia.entities.buildings;
 
-import obsidia.entities.AbstractCell;
+import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
 public class Castle extends AbstractCell{
