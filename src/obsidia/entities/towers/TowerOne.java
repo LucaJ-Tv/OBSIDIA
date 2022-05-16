@@ -3,7 +3,7 @@ package obsidia.entities.towers;
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
-public class TowerOne extends AbstractCell implements Tower{
+public class TowerOne extends AbstractCell {
 
 	private static final int COST_LV1 = 15;
 	private static final int BALANCE_LV1 = -1;
@@ -13,8 +13,7 @@ public class TowerOne extends AbstractCell implements Tower{
 		super(ownerID, xy);
 	}
 
-	@Override
-	public int getCost() {
+	public static int getCost() {
 		return TowerOne.COST_LV1;
 	}
 
