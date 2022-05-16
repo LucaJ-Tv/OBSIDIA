@@ -10,7 +10,7 @@ public class Farm extends AbstractCell{
 	 */
 	private final int BALANCE = 6;
 	private final int DEFENCE = 0;
-	//private final int COST = ;
+	private final int INIZ_COST = 12;
 
 	public Farm(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
@@ -23,6 +23,10 @@ public class Farm extends AbstractCell{
 	@Override
 	public int getDefence() {
 		return this.DEFENCE;
+	}
+	
+	public int getInizCost() {
+		return this.INIZ_COST;
 	}
 	
 }
