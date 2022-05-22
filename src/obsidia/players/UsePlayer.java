@@ -27,9 +27,9 @@ public class UsePlayer {
 		PLY.getFirst().setCoins(coins);
 	}
 	
-	public void nextPlayer() {
-		final Player p = PLY.removeFirst();
-		addPlayer(p);
+	public Player nextPlayer() {
+		addPlayer(PLY.removeFirst());
+		return PLY.getFirst();
 	}
 	
 	public void removePlayer(final String name) {
@@ -38,5 +38,9 @@ public class UsePlayer {
 				PLY.remove(i);
 			}
 		}
+	}
+	
+	public int playerSize() {
+		return PLY.size();
 	}
 }
