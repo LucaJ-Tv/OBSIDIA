@@ -10,12 +10,13 @@ public class Castle extends AbstractCell{
 	 */
 	private final int BALANCE = 0;
 	private final int DEFENCE = 4;
-	private boolean isAlive = true;
+	//private boolean isAlive = true;
 	
 	public Castle(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
 	}
 	
+	/*
 	public boolean isAlive() {
 		return this.isAlive;
 	}
@@ -23,6 +24,7 @@ public class Castle extends AbstractCell{
 	public void setAlive(final boolean isAlive) {
 		this.isAlive = isAlive;
 	}
+	*/
 
 	@Override
 	public int getBalance() {
