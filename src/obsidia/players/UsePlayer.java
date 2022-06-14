@@ -40,7 +40,11 @@ public class UsePlayer {
 		}
 	}
 	
+<<<<<<< Updated upstream
 	public int playerSize() {
+=======
+	public int numberPlayer() {
+>>>>>>> Stashed changes
 		return PLY.size();
 	}
 }
