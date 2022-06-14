@@ -40,6 +40,11 @@ public class UsePlayer {
 		}
 	}
 	
+	public String getNameIndex(final int index) {
+		return PLY.get(index).getName();		
+	}
+	
+	
 	public int numberPlayer() {
 		return PLY.size();
 	}
