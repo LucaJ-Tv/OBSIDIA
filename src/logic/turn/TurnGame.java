@@ -1,4 +1,4 @@
-package obsidia.turn;
+package logic.turn;
 
 import java.util.List;
 

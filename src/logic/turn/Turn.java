@@ -1,4 +1,4 @@
-package obsidia.turn;
+package logic.turn;
 
 import obsidia.players.Player;
 import obsidia.utilities.Coordinates;
