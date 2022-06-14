@@ -6,14 +6,12 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public class Frame extends JFrame{
 
+	private static final long serialVersionUID = 2066419076195637796L;
 	private final int PROPORTION_M = 3;
 	private final int PROPORTION_D = 4;
-	//JFrame frame = new JFrame();
-	
-	
+
 	public Frame() {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setTitle("OBSIDIA");
