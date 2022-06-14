@@ -15,6 +15,10 @@ public class TurnGame implements Turn{
 	private Coordinates coordinates;
 	private List<Coordinates> castlePosition = map.castleposition();
 	
+	public TurnGame() {
+		
+	}
+	
 	//to do after every add of a Farm
 	@Override
 	public int getFarmCost() {
@@ -38,7 +42,7 @@ public class TurnGame implements Turn{
 	}
 	
 	private boolean haveWinner() {
-		return player.playerSize() == 1;
+		return player.numberPlayer() == 1;
 	}
 	
 	//call when a troop move in a cell where is a Castle
@@ -53,6 +57,5 @@ public class TurnGame implements Turn{
 			//call end game
 		}
 	}
-	
 	
 }
