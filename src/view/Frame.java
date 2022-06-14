@@ -27,21 +27,10 @@ public class Frame extends JFrame{
 		this.setMaximumSize(screen);
 		this.setMinimumSize(new Dimension(sw / 2, sh / 2));
 		
-		/* --how use the method addPanel
-		JPanel panel1 = new JPanel();
-		panel1.add(new JButton("Ciao"));
-		JPanel panel2 = new JPanel();
-		panel2.add(new JButton("fff"));
-
-		addPanel(panel2,BorderLayout.EAST);
-		addPanel(panel1,BorderLayout.SOUTH);
-		*/
-		
 		this.setVisible(true);
 	}
 	
 	public void addPanel(JPanel panel, String position) {
 		this.add(panel,position);
 	}
-	
 }
