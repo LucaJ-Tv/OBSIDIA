@@ -4,23 +4,28 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class StartMenu {
 
-	/*
+	
 	public static void main(String[] args) {
 		new StartMenu();
 	}
-	*/
 	
-	int count = 1;
+	
 	Frame frame = new Frame();
+	List<String> listPlayer = new ArrayList<>();
+	String strName = "";
+	private int count = 1;
+	private final int NMAXPLAYER = 2;
 	
 	public StartMenu() {
 		frame.add(new MenuPane());
@@ -47,21 +52,37 @@ public class StartMenu {
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             
-            JPanel playerButton = new JPanel(new GridBagLayout());
+            JPanel playerPanel = new JPanel(new GridBagLayout());
             JButton bAddPlayer = createButton("addPlayer");
-            playerButton.add(bAddPlayer, gbc);
+            playerPanel.add(bAddPlayer, gbc);
             JLabel insert = new JLabel("Inserisci nome");
+            insert.setHorizontalAlignment(JLabel.CENTER);
             insert.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-            playerButton.add(insert,gbc);
-            playerButton.add(new JTextArea(1,1), gbc);
-            
+            playerPanel.add(insert,gbc);
+            JTextField nameInser = new JTextField(1);
+            playerPanel.add(nameInser, gbc);
+            JLabel labelPlayer = new JLabel();
+            playerPanel.add(labelPlayer,gbc);
             
             bAddPlayer.addActionListener(e -> {
-            	//playerButton.add(new JLabel(count++ + "."));
+            	
+            	listPlayer.add(nameInser.getText());
+            	
+            	//MODIFICA: aggiunta dei nomi in verticale e non orizzontale, altrimenti se 
+            	strName += (count++ + ". " + listPlayer.get(count-2) + " ");
+            	labelPlayer.setText(strName);
+            	
+            	nameInser.setText("");
+            	if(listPlayer.size() >= NMAXPLAYER) {
+            		bAddPlayer.setEnabled(false);
+            		bAddPlayer.setBackground(Color.DARK_GRAY);
+            		nameInser.setEnabled(false);
+            	}
+            	
             });
 
             gbc.weighty = 5;
-            add(playerButton, gbc);
+            add(playerPanel, gbc);
             
             gbc.anchor = GridBagConstraints.SOUTH;
             gbc.fill = GridBagConstraints.HORIZONTAL;
