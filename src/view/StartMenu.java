@@ -62,15 +62,14 @@ public class StartMenu {
             playerPanel.add(insert,gbc);
             JTextField nameInser = new JTextField(1);
             playerPanel.add(nameInser, gbc);
-              
-            
             
             bAddPlayer.addActionListener(e -> {
             	
             	listPlayer.add(nameInser.getText());
-            	gbc.gridwidth = GridBagConstraints.REMAINDER;
-            	playerPanel.add(new JLabel(count++ +". "+ nameInser.getText()), gbc);
             	
+            	gbc.gridwidth = GridBagConstraints.REMAINDER;
+            	playerPanel.add(new JLabel(count++ + ". " + nameInser.getText()),gbc);            	
+
             	nameInser.setText("");
             	if(listPlayer.size() >= NMAXPLAYER) {
             		bAddPlayer.setEnabled(false);
