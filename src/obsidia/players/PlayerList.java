@@ -3,11 +3,11 @@ package obsidia.players;
 import java.awt.Color;
 import java.util.LinkedList;
 
-public class UsePlayer {
+public class PlayerList {
 	
 	private static final LinkedList<Player> PLY = new LinkedList<>();
 	
-	public static void addPlayer(final Player p) {
+	public void addPlayer(final Player p) {
 		PLY.addLast(p);
 	}
 
@@ -21,6 +21,10 @@ public class UsePlayer {
 	
 	public Color getColor() {
 		return PLY.getFirst().getColor();		
+	}
+	
+	public Color getColorIndex(final int index) {
+		return PLY.get(index).getColor();		
 	}
 	
 	public void setCoins(final int coins) {

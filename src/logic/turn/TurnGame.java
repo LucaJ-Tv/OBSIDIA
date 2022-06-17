@@ -5,13 +5,13 @@ import java.util.List;
 import obsidia.entities.buildings.Farm;
 import obsidia.map.UseMap;
 import obsidia.players.Player;
-import obsidia.players.UsePlayer;
+import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
 public class TurnGame implements Turn{
 	
 	private final UseMap map = new UseMap();
-	private final UsePlayer player = new UsePlayer();
+	private final PlayerList player = new PlayerList();
 	private Coordinates coordinates;
 	private List<Coordinates> castlePosition = map.castleposition();
 	

@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.cells.FreeCell;
-import obsidia.players.UsePlayer;
+import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
 public class DefaultMap {
@@ -17,7 +17,7 @@ public class DefaultMap {
 	private static final int GREY = Character.getNumericValue('x');
 	
 	final UseMap map = new UseMap();
-	final UsePlayer ply = new UsePlayer();
+	final PlayerList ply = new PlayerList();
 	private String[] dat;
 	
 	public DefaultMap(final String fileName) {
@@ -42,6 +42,7 @@ public class DefaultMap {
 	}
 	
 	private void createMap() {
+		
 		
 		for(int i = 0; i < dat.length; i++) {
 			for (int j = 0; j< dat[i].length(); j++) {
