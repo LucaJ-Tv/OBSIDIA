@@ -14,8 +14,7 @@ public class Player{
 	public Player(final String name, final Color color, final int startCoins) {
 		this.name = name;
 		this.color = color;
-		this.coins = startCoins;
-		UsePlayer.addPlayer(this);		
+		this.coins = startCoins;	
 	}
 	
 	public Player(final String player, final Color color) {
