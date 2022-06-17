@@ -23,13 +23,11 @@ public class StartMenu {
 	
 	Frame frame = new Frame();
 	List<String> listPlayer = new ArrayList<>();
-	String strName = "";
 	private int count = 1;
-	private final int NMAXPLAYER = 2;
+	private final int NMAXPLAYER = 8;
 	
 	public StartMenu() {
 		frame.add(new MenuPane());
-		//frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
@@ -53,7 +51,10 @@ public class StartMenu {
             gbc.fill = GridBagConstraints.HORIZONTAL;
             
             JPanel playerPanel = new JPanel(new GridBagLayout());
+
+            //centralPanel.add(playerPanel, GridBagConstraints.CENTER);
             JButton bAddPlayer = createButton("addPlayer");
+            
             playerPanel.add(bAddPlayer, gbc);
             JLabel insert = new JLabel("Inserisci nome");
             insert.setHorizontalAlignment(JLabel.CENTER);
@@ -61,16 +62,14 @@ public class StartMenu {
             playerPanel.add(insert,gbc);
             JTextField nameInser = new JTextField(1);
             playerPanel.add(nameInser, gbc);
-            JLabel labelPlayer = new JLabel();
-            playerPanel.add(labelPlayer,gbc);
+              
+            
             
             bAddPlayer.addActionListener(e -> {
             	
             	listPlayer.add(nameInser.getText());
-            	
-            	//MODIFICA: aggiunta dei nomi in verticale e non orizzontale, altrimenti se 
-            	strName += (count++ + ". " + listPlayer.get(count-2) + " ");
-            	labelPlayer.setText(strName);
+            	gbc.gridwidth = GridBagConstraints.REMAINDER;
+            	playerPanel.add(new JLabel(count++ +". "+ nameInser.getText()), gbc);
             	
             	nameInser.setText("");
             	if(listPlayer.size() >= NMAXPLAYER) {
@@ -78,6 +77,8 @@ public class StartMenu {
             		bAddPlayer.setBackground(Color.DARK_GRAY);
             		nameInser.setEnabled(false);
             	}
+            	
+            	this.validate();
             	
             });
 
