@@ -1,17 +1,22 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import obsidia.players.Player;
+import obsidia.players.PlayerList;
 
 public class StartMenu {
 
@@ -23,7 +28,7 @@ public class StartMenu {
 	
 	Frame frame = new Frame();
 	List<String> listPlayer = new ArrayList<>();
-	private int count = 1;
+	private int count = 0;
 	private final int NMAXPLAYER = 8;
 	
 	public StartMenu() {
@@ -61,14 +66,22 @@ public class StartMenu {
             insert.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
             playerPanel.add(insert,gbc);
             JTextField nameInser = new JTextField(1);
+            nameInser.setPreferredSize(new Dimension(10,40));
             playerPanel.add(nameInser, gbc);
             
             bAddPlayer.addActionListener(e -> {
             	
             	listPlayer.add(nameInser.getText());
+            	Random ran = new Random();
+            	
+            	PlayerList plyList = new PlayerList();
+            	plyList.addPlayer(new Player(nameInser.getText(), new Color(ran.nextFloat(), ran.nextFloat(), ran.nextFloat())));
             	
             	gbc.gridwidth = GridBagConstraints.REMAINDER;
-            	playerPanel.add(new JLabel(count++ + ". " + nameInser.getText()),gbc);            	
+            	JLabel lab = new JLabel((count +1) + ". " + nameInser.getText());
+            	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
+            	lab.setForeground(plyList.getColorIndex(count++));
+            	playerPanel.add(lab ,gbc);            	
 
             	nameInser.setText("");
             	if(listPlayer.size() >= NMAXPLAYER) {
