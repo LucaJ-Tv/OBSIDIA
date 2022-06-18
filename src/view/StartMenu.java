@@ -113,7 +113,8 @@ public class StartMenu {
             add(buttons, gbc);
             
             bStart.addActionListener(e -> {
-            	
+            	frame.setVisible(false);
+            	new TurnGUI();
             });
             
             bSettings.addActionListener(e -> {
