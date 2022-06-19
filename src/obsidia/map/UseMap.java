@@ -10,8 +10,15 @@ public class UseMap {
 	
 	private static final Map<Coordinates, Cells> MAP = new HashMap<Coordinates, Cells>();
 	
-	protected static void addEntity(final Cells entity) {
+	public void addEntity(final Cells entity) {
 		UseMap.MAP.put(entity.getCoordinates(), entity);
+	}
+	
+	//TODO that's not completely correct, tecnically only troup colud change position so
+	// the field position in Abstract cell shuld be final (but not for troop....)
+	public void moveEntity(final Cells entity, Coordinates pos) {
+		entity.setCoordinates(pos);
+		UseMap.MAP.replace(pos, entity);
 	}
 	
 	public int getDefence(final Coordinates xy) {
