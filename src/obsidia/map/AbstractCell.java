@@ -4,13 +4,13 @@ import obsidia.utilities.Coordinates;
 
 public abstract class AbstractCell implements Cells{
 
-	private final Coordinates xy;
+	private Coordinates xy;
 	private final String ownerID;
 	
 	public AbstractCell(final String ownerID, final Coordinates xy) {
 		this.ownerID = ownerID;
 		this.xy = xy;
-		UseMap.addEntity(this);
+		//UseMap.addEntity(this);
 	}
 	
 	@Override
@@ -21,5 +21,10 @@ public abstract class AbstractCell implements Cells{
 	@Override
 	public Coordinates getCoordinates() {
 		return this.xy;
+	}
+	
+	@Override
+	public void setCoordinates(Coordinates pos) {
+		this.xy = pos;
 	}
 }
