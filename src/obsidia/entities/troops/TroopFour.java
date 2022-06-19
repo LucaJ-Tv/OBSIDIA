@@ -3,12 +3,13 @@ package obsidia.entities.troops;
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
-public class TroopFour extends AbstractCell {
+public class TroopFour extends AbstractCell implements Troops{
 
 	private static final int COST = 15;
 	private static final int BALANCE = -36;
 	private static final int DEFENCE = 4;
 	private static final int MOVEMENT = 4; //For a possible Troop that can move more than 4 cells
+	private static final int OFFENCE = 4;
 	
 	public TroopFour(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
@@ -18,8 +19,14 @@ public class TroopFour extends AbstractCell {
 		return TroopFour.COST;
 	}
 
-	public static int getMovement() {
+	@Override
+	public int getMovement() {
 		return TroopFour.MOVEMENT;
+	}
+
+	@Override
+	public int getOffence() {
+		return TroopFour.OFFENCE;
 	}
 
 	@Override
