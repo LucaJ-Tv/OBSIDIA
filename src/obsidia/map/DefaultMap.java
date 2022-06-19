@@ -41,8 +41,7 @@ public class DefaultMap {
 		
 	}
 	
-	private void createMap() {
-		
+	private void createMap() {		
 		
 		for(int i = 0; i < dat.length; i++) {
 			for (int j = 0; j< dat[i].length(); j++) {
@@ -51,20 +50,22 @@ public class DefaultMap {
 				
 				if(entity >= DefaultMap.CASTLE && entity <= (DefaultMap.CASTLE + ply.numberPlayer())) {
 					
-					new Castle(ply.getNameIndex(entity - CASTLE), new Coordinates(i,j));			
+					map.addEntity(new Castle(ply.getNameIndex(entity - CASTLE), new Coordinates(i,j)));			
 					
 				} else if(entity >= DefaultMap.TERRAIN && entity <= (DefaultMap.TERRAIN + ply.numberPlayer())){
 					
-					new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j)); 
+					map.addEntity(new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j))); 
 					
 				} else if (entity == DefaultMap.GREY){
 					
-					new FreeCell(null, new Coordinates(i, j));
+					map.addEntity(new FreeCell(null, new Coordinates(i, j)));
 				}
 			}
 		}
 		
 	}
+	
+	
 	
 	
 }
