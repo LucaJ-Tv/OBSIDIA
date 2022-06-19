@@ -20,4 +20,14 @@ public class Coordinates {
 	public String toString() {
 		return "x: " + this.x  + "y: " + this.y;
 	}
+	
+	public int distance(Coordinates other) {
+		final int Dx = other.getX() - this.getX();
+		final int Dy = other.getY() - this.getY();
+		
+		if (Dx >= Dy)
+			return Dx;
+		else
+			return Dy;
+	}
 }
