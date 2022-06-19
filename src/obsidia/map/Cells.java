@@ -11,5 +11,7 @@ public interface Cells {
 	public String getOwner();
 	
 	public Coordinates getCoordinates();
+
+	void setCoordinates(Coordinates pos);
 	
 }
