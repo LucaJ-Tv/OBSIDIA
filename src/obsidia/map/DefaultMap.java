@@ -34,10 +34,7 @@ public class DefaultMap {
 			e.printStackTrace();
 		}		
 		
-		System.out.println(Character.getNumericValue('x'));
-		System.out.println(Character.getNumericValue('1'));
-		System.out.println(Character.isDigit('x'));
-		System.out.println(Character.isDigit('1'));
+		map.setDimension(dat.length, dat[0].length());
 		
 	}
 	
