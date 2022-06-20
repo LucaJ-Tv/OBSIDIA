@@ -8,7 +8,7 @@ import obsidia.utilities.Coordinates;
 
 public class UseMap {
 	
-	private static final Map<Coordinates, Cells> MAP = new HashMap<Coordinates, Cells>();
+	private static Map<Integer, Cells> MAP = new HashMap<Integer, Cells>();
 	private static int HEIGHT = 0;
 	private static int WIDTH = 0;
 	
@@ -26,30 +26,30 @@ public class UseMap {
 	}
 	
 	public void addEntity(final Cells entity) {
-		UseMap.MAP.put(entity.getCoordinates(), entity);
+		UseMap.MAP.put(entity.getCoordinates().getKey(), entity);
 	}
 	
 	//TODO that's not completely correct, tecnically only troup colud change position so
 	// the field position in Abstract cell shuld be final (but not for troop....)
 	public void moveEntity(final Cells entity, Coordinates pos) {
 		entity.setCoordinates(pos);
-		UseMap.MAP.replace(pos, entity);
+		UseMap.MAP.replace(pos.getKey(), entity);
 	}
 	
 	public int getDefence(final Coordinates xy) {
-		return UseMap.MAP.get(xy).getDefence();
+		return UseMap.MAP.get(xy.getKey()).getDefence();
 	}
 
 	public String getOwner(final Coordinates xy) {
-		return UseMap.MAP.get(xy).getOwner();
+		return UseMap.MAP.get(xy.getKey()).getOwner();
 	}
 	
 	public Cells getEntity(final Coordinates xy) {
-		return UseMap.MAP.get(xy);
+		return UseMap.MAP.get(xy.getKey());
 	}
 	
 	public int getBalance(final Coordinates xy) {
-		return UseMap.MAP.get(xy).getBalance();
+		return UseMap.MAP.get(xy.getKey()).getBalance();
 	}
 	
 	public int numberFarm(final String ID) {

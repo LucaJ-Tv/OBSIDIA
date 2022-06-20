@@ -11,6 +11,9 @@ public class Coordinates {
 		this.y = y;
 	}
 	
+	public int getKey()	{
+		return this.x*100+this.y;
+	}
 	public int getX() {
 		return this.x;
 	}

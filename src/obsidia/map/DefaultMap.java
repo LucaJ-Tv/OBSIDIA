@@ -1,5 +1,6 @@
 package obsidia.map;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,6 +8,7 @@ import java.nio.file.Path;
 
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.cells.FreeCell;
+import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
@@ -16,7 +18,7 @@ public class DefaultMap {
 	private static final int TERRAIN = Character.getNumericValue('0');
 	private static final int GREY = Character.getNumericValue('x');
 	
-	final UseMap map = new UseMap();
+	private UseMap map = new UseMap();
 	final PlayerList ply = new PlayerList();
 	private String[] dat;
 	
@@ -34,29 +36,32 @@ public class DefaultMap {
 			e.printStackTrace();
 		}		
 		
+		System.out.println(dat[1]);
+		
 		map.setDimension(dat.length, dat[0].length());
 		
 	}
 	
 	private void createMap() {		
 		
-		for(int i = 0; i < dat.length; i++) {
-			for (int j = 0; j< dat[i].length(); j++) {
+		for(int i = 0; i < map.getHeight(); i++) {
+			for (int j = 0; j< map.getWidth(); j++) {
 				
-				int entity = Character.getNumericValue(dat[0].charAt(j));
+				int entity =Character.getNumericValue(dat[i].charAt(j));
 				
-				if(entity >= DefaultMap.CASTLE && entity <= (DefaultMap.CASTLE + ply.numberPlayer())) {
+				if(entity >= DefaultMap.CASTLE && entity < (DefaultMap.CASTLE + ply.numberPlayer())) {
 					
 					map.addEntity(new Castle(ply.getNameIndex(entity - CASTLE), new Coordinates(i,j)));			
 					
-				} else if(entity >= DefaultMap.TERRAIN && entity <= (DefaultMap.TERRAIN + ply.numberPlayer())){
+				} else if(entity >= DefaultMap.TERRAIN && entity < (DefaultMap.TERRAIN + ply.numberPlayer())){
 					
 					map.addEntity(new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j))); 
 					
-				} else if (entity == DefaultMap.GREY){
-					
+				} else if(entity == DefaultMap.GREY) {
+					map.addEntity(new FreeCell("", new Coordinates(i, j)));
+				} else {					
 					map.addEntity(new FreeCell(null, new Coordinates(i, j)));
-				}
+				} 
 			}
 		}
 		
