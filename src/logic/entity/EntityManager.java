@@ -40,4 +40,7 @@ public class EntityManager {
 		}
 		return bools;
 	}
+	
+	
+	
 }
