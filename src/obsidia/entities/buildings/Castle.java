@@ -8,8 +8,9 @@ public class Castle extends AbstractCell{
 	/*
 	 * Entity Castle
 	 */
-	private final int BALANCE = 0;
-	private final int DEFENCE = 4;
+	private static final int BALANCE = 0;
+	private static final int DEFENCE = 4;
+	public static final int COST = 0;
 	
 	public Castle(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
@@ -17,11 +18,16 @@ public class Castle extends AbstractCell{
 	
 	@Override
 	public int getBalance() {
-		return this.BALANCE;
+		return Castle.BALANCE;
 	}
 
 	@Override
 	public int getDefence() {
-		return this.DEFENCE;
+		return Castle.DEFENCE;
+	}
+
+	@Override
+	public int getCost() {
+		return Castle.COST;
 	}
 }
