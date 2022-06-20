@@ -6,11 +6,15 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -29,25 +33,40 @@ public class StartMenu {
 	Frame frame = new Frame();
 	List<String> listPlayer = new ArrayList<>();
 	private int count = 0;
-	private final int NMAXPLAYER = 8;
+	private final int NMAXPLAYER = 5;
+	private List<Color> listColor = new ArrayList<>();
+	Random ran = new Random();
 	
 	public StartMenu() {
+		//set Frame
 		frame.add(new MenuPane());
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		//inizialise color for player
+		listColor.addAll(Arrays.asList(
+				new Color(200,15,15),
+				new Color(200,15,150),
+				new Color(50,40,235),
+				new Color(30,210,210),
+				new Color(10,200,30),
+				new Color(240,250,20),
+				new Color(250,150,30)
+				));
 	}
 	
 	@SuppressWarnings("serial")
 	public class MenuPane extends JPanel {
 
         public MenuPane() {
-            setBorder(new EmptyBorder(10, 10, 10, 10));
+            setBorder(new EmptyBorder(5, 5, 5, 5));
             setLayout(new GridBagLayout());
 
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridwidth = GridBagConstraints.REMAINDER;
             gbc.anchor = GridBagConstraints.NORTH;
 
+            //title
             JLabel label = new JLabel("OBSIDIA");
             label.setFont(new Font("Ink Free",Font.BOLD, 80));
             add(label, gbc);
@@ -55,33 +74,34 @@ public class StartMenu {
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.fill = GridBagConstraints.HORIZONTAL;
             
+            //panel which adds players
             JPanel playerPanel = new JPanel(new GridBagLayout());
-
-            //centralPanel.add(playerPanel, GridBagConstraints.CENTER);
-            JButton bAddPlayer = createButton("addPlayer");
             
+            JButton bAddPlayer = createButton("addPlayer");
             playerPanel.add(bAddPlayer, gbc);
+            
             JLabel insert = new JLabel("Inserisci nome");
             insert.setHorizontalAlignment(JLabel.CENTER);
             insert.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
             playerPanel.add(insert,gbc);
+            
             JTextField nameInser = new JTextField(1);
-            nameInser.setPreferredSize(new Dimension(10,40));
+            nameInser.setPreferredSize(new Dimension(10,20));
             playerPanel.add(nameInser, gbc);
             
             bAddPlayer.addActionListener(e -> {
             	
+            	//add of a new player
             	listPlayer.add(nameInser.getText());
-            	Random ran = new Random();
-            	
             	PlayerList plyList = new PlayerList();
-            	plyList.addPlayer(new Player(nameInser.getText(), new Color(ran.nextFloat(), ran.nextFloat(), ran.nextFloat())));
+            	plyList.addPlayer(new Player(nameInser.getText(), listColor.remove(ran.nextInt(listColor.size()))));
             	
+            	//write the name bottom the TextField
             	gbc.gridwidth = GridBagConstraints.REMAINDER;
             	JLabel lab = new JLabel((count +1) + ". " + nameInser.getText());
-            	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 40));
+            	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
             	lab.setForeground(plyList.getColorIndex(count++));
-            	playerPanel.add(lab ,gbc);            	
+            	playerPanel.add(lab ,gbc);
 
             	nameInser.setText("");
             	if(listPlayer.size() >= NMAXPLAYER) {
@@ -89,7 +109,7 @@ public class StartMenu {
             		bAddPlayer.setBackground(Color.DARK_GRAY);
             		nameInser.setEnabled(false);
             	}
-            	
+
             	this.validate();
             	
             });
@@ -101,12 +121,16 @@ public class StartMenu {
             gbc.fill = GridBagConstraints.HORIZONTAL;
             gbc.gridwidth = 2;
             
+            //panel with buttons
             JPanel buttons = new JPanel(new GridBagLayout());
+            
             JButton bStart = createButton("start");
-            JButton bSettings = createButton("settings");
-            JButton bExit = createButton("exit");
             buttons.add(bStart,gbc);
+            
+            JButton bSettings = createButton("settings");
             buttons.add(bSettings,gbc);
+            
+            JButton bExit = createButton("exit");
             buttons.add(bExit,gbc);
             
             gbc.weighty = 5;
@@ -122,11 +146,17 @@ public class StartMenu {
             });
             
             bExit.addActionListener(e -> {
-            	System.exit(0);
+            	if(JOptionPane.showConfirmDialog(
+            			frame,
+            			"Are you sure to exit?",
+            			"EXIT",
+            			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
+            		System.exit(0);
             });
             
         }
         
+        //create a generic button
         private JButton createButton(String name) {
         	JButton b = new JButton(name);
         	b.setOpaque(true);
