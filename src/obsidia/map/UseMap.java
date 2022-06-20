@@ -9,6 +9,21 @@ import obsidia.utilities.Coordinates;
 public class UseMap {
 	
 	private static final Map<Coordinates, Cells> MAP = new HashMap<Coordinates, Cells>();
+	private static int HEIGHT = 0;
+	private static int WIDTH = 0;
+	
+	public void setDimension(final int height, final int width) {
+		UseMap.HEIGHT = height;
+		UseMap.WIDTH = width;
+	}
+	
+	public int getWidth() {
+		return UseMap.WIDTH;
+	}
+	
+	public int getHeight() {
+		return UseMap.HEIGHT;
+	}
 	
 	public void addEntity(final Cells entity) {
 		UseMap.MAP.put(entity.getCoordinates(), entity);
@@ -29,8 +44,8 @@ public class UseMap {
 		return UseMap.MAP.get(xy).getOwner();
 	}
 	
-	public Class<? extends Cells> getEntity(final Coordinates xy) {
-		return UseMap.MAP.get(xy).getClass();
+	public Cells getEntity(final Coordinates xy) {
+		return UseMap.MAP.get(xy);
 	}
 	
 	public int getBalance(final Coordinates xy) {
