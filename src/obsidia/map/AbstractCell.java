@@ -2,7 +2,7 @@ package obsidia.map;
 
 import obsidia.utilities.Coordinates;
 
-public abstract class AbstractCell implements Cells{
+public abstract class AbstractCell implements Cells {
 
 	private Coordinates xy;
 	private final String ownerID;
