@@ -87,30 +87,6 @@ public class StartMenu {
             nameInser.setPreferredSize(new Dimension(10,20));
             playerPanel.add(nameInser, gbc);
             
-            bAddPlayer.addActionListener(e -> {
-            	
-            	//add of a new player
-            	listPlayer.add(nameInser.getText());
-            	PlayerList plyList = new PlayerList();
-            	plyList.addPlayer(new Player(nameInser.getText(), listColor.remove(ran.nextInt(listColor.size()))));
-            	
-            	//write the name bottom the TextField
-            	gbc.gridwidth = GridBagConstraints.REMAINDER;
-            	JLabel lab = new JLabel((count +1) + ". " + nameInser.getText());
-            	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-            	lab.setForeground(plyList.getColorIndex(count++));
-            	playerPanel.add(lab ,gbc);
-
-            	nameInser.setText("");
-            	if(listPlayer.size() >= NMAXPLAYER) {
-            		bAddPlayer.setEnabled(false);
-            		bAddPlayer.setBackground(Color.DARK_GRAY);
-            		nameInser.setEnabled(false);
-            	}
-
-            	this.validate();
-            	
-            });
 
             gbc.weighty = 5;
             add(playerPanel, gbc);
@@ -123,6 +99,7 @@ public class StartMenu {
             JPanel buttons = new JPanel(new GridBagLayout());
             
             JButton bStart = createButton("start");
+            bStart.setEnabled(false);
             buttons.add(bStart,gbc);
             
             JButton bSettings = createButton("settings");
@@ -150,6 +127,35 @@ public class StartMenu {
             			"EXIT",
             			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
             		System.exit(0);
+            });
+            
+            bAddPlayer.addActionListener(e -> {
+            	
+            	//add of a new player
+            	listPlayer.add(nameInser.getText());
+            	PlayerList plyList = new PlayerList();
+            	plyList.addPlayer(new Player(nameInser.getText(), listColor.remove(ran.nextInt(listColor.size()))));
+            	
+            	//write the name bottom the TextField
+            	gbc.gridwidth = GridBagConstraints.REMAINDER;
+            	JLabel lab = new JLabel((count +1) + ". " + nameInser.getText());
+            	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+            	lab.setForeground(plyList.getColorIndex(count++));
+            	playerPanel.add(lab ,gbc);
+            	
+            	nameInser.setText("");
+            	if(listPlayer.size() >= NMAXPLAYER) {
+            		bAddPlayer.setEnabled(false);
+            		bAddPlayer.setBackground(Color.DARK_GRAY);
+            		nameInser.setEnabled(false);
+            	}
+            	
+            	if(listPlayer.size() >= 2) {
+            		bStart.setEnabled(true);
+            	}
+            	
+            	this.validate();
+            	
             });
             
         }
