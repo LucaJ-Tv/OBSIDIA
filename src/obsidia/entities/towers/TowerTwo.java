@@ -3,9 +3,9 @@ package obsidia.entities.towers;
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
-public class TowerTwo extends AbstractCell {
+public class TowerTwo extends AbstractCell implements Towers{
 
-	private static final int COST_LV2 = 25;
+	public static final int COST_LV2 = 25;
 	private static final int BALANCE_LV2 = -6;
 	private static final int DEFENCE_LV2 = 3;
 
@@ -13,7 +13,8 @@ public class TowerTwo extends AbstractCell {
 		super(Player, xy);
 	}
 	
-	public static int getCost() {
+	@Override
+	public int getCost() {
 		return TowerTwo.COST_LV2;
 	}
 	
@@ -25,6 +26,11 @@ public class TowerTwo extends AbstractCell {
 	@Override
 	public int getDefence() {
 		return TowerTwo.DEFENCE_LV2;
+	}
+
+	@Override
+	public int getLevel() {
+		return 2;
 	}
 
 }
