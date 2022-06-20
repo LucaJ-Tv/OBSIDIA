@@ -19,7 +19,7 @@ public class DefaultMap {
 	private static final int GREY = Character.getNumericValue('x');
 	
 	private UseMap map = new UseMap();
-	final PlayerList ply = new PlayerList();
+	private PlayerList ply = new PlayerList();
 	private String[] dat;
 	
 	public DefaultMap(final String fileName) {
@@ -36,9 +36,7 @@ public class DefaultMap {
 			e.printStackTrace();
 		}		
 		
-		System.out.println(dat[1]);
-		
-		map.setDimension(dat.length, dat[0].length());
+		map.setDimension(Integer.parseInt(dat[0]) , Integer.parseInt(dat[1]));
 		
 	}
 	
@@ -47,7 +45,7 @@ public class DefaultMap {
 		for(int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j< map.getWidth(); j++) {
 				
-				int entity =Character.getNumericValue(dat[i].charAt(j));
+				int entity =Character.getNumericValue(dat[i+2].charAt(j));
 				
 				if(entity >= DefaultMap.CASTLE && entity < (DefaultMap.CASTLE + ply.numberPlayer())) {
 					
@@ -58,7 +56,7 @@ public class DefaultMap {
 					map.addEntity(new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j))); 
 					
 				} else if(entity == DefaultMap.GREY) {
-					map.addEntity(new FreeCell("", new Coordinates(i, j)));
+					map.addEntity(new FreeCell("NO", new Coordinates(i,j)));
 				} else {					
 					map.addEntity(new FreeCell(null, new Coordinates(i, j)));
 				} 
