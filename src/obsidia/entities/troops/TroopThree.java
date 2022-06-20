@@ -5,7 +5,7 @@ import obsidia.utilities.Coordinates;
 
 public class TroopThree extends AbstractCell implements Troops{
 
-	private static final int COST = 10;
+	public static final int COST = 10;
 	private static final int BALANCE = -18;
 	private static final int DEFENCE = 3;
 	private static final int MOVEMENT = 4; //For a possible Troop that can move more than 4 cells
@@ -15,7 +15,8 @@ public class TroopThree extends AbstractCell implements Troops{
 		super(ownerID, xy);
 	}
 	
-	public static int getCost() {
+	@Override
+	public int getCost() {
 		return TroopThree.COST;
 	}
 	
@@ -37,6 +38,11 @@ public class TroopThree extends AbstractCell implements Troops{
 	@Override
 	public int getDefence() {
 		return TroopThree.DEFENCE;
+	}
+
+	@Override
+	public int getLevel() {
+		return 3;
 	}
 
 }
