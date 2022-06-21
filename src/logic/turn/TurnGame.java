@@ -1,8 +1,9 @@
 package logic.turn;
 
-import java.util.List;
+import java.awt.Color;
 
 import obsidia.entities.buildings.Farm;
+import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.players.Player;
 import obsidia.players.PlayerList;
@@ -10,10 +11,9 @@ import obsidia.utilities.Coordinates;
 
 public class TurnGame implements Turn{
 	
-	private final UseMap map = new UseMap();
-	private final PlayerList player = new PlayerList();
+	private  UseMap map = new UseMap();
+	private  PlayerList player = new PlayerList();
 	private Coordinates coordinates;
-	private List<Coordinates> castlePosition = map.castleposition();
 	
 	public TurnGame() {
 		
@@ -22,7 +22,7 @@ public class TurnGame implements Turn{
 	//to do after every add of a Farm
 	@Override
 	public int getFarmCost() {
-		return map.numberFarm(player.getName())*2 + Farm.getInizCost();
+		return map.numberFarm(player.getName())*2 + Farm.COST;
 	}
 	
 	//to do after every add of an entity
@@ -57,5 +57,6 @@ public class TurnGame implements Turn{
 			//call end game
 		}
 	}
+	
 	
 }
