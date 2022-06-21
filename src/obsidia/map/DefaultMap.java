@@ -1,6 +1,5 @@
 package obsidia.map;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,7 +7,6 @@ import java.nio.file.Path;
 
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.cells.FreeCell;
-import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
