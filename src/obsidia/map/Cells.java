@@ -1,5 +1,7 @@
 package obsidia.map;
 
+import javax.swing.ImageIcon;
+
 import obsidia.utilities.Coordinates;
 
 public interface Cells {
@@ -15,5 +17,7 @@ public interface Cells {
 	public Coordinates getCoordinates();
 
 	public void setCoordinates(Coordinates pos);
+	
+	public ImageIcon getIcon();
 	
 }
