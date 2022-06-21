@@ -16,7 +16,7 @@ public class DefaultMap {
 	
 	private static final int CASTLE = Character.getNumericValue('A');
 	private static final int TERRAIN = Character.getNumericValue('0');
-	private static final int GREY = Character.getNumericValue('x');
+	private static final int NULL = Character.getNumericValue('.');
 	
 	private UseMap map = new UseMap();
 	private PlayerList ply = new PlayerList();
@@ -36,7 +36,11 @@ public class DefaultMap {
 			e.printStackTrace();
 		}		
 		
-		map.setDimension(Integer.parseInt(dat[0]) , Integer.parseInt(dat[1]));
+		map.setDimension(
+				Character.getNumericValue(dat[0].charAt(0))*10 +
+				Character.getNumericValue(dat[0].charAt(1)), 
+				Character.getNumericValue(dat[0].charAt(2))*10 +
+				Character.getNumericValue(dat[0].charAt(3)));
 		
 	}
 	
@@ -45,20 +49,20 @@ public class DefaultMap {
 		for(int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j< map.getWidth(); j++) {
 				
-				int entity =Character.getNumericValue(dat[i+2].charAt(j));
+				int entity =Character.getNumericValue(dat[i+1].charAt(j));
 				
 				if(entity >= DefaultMap.CASTLE && entity < (DefaultMap.CASTLE + ply.numberPlayer())) {
 					
-					map.addEntity(new Castle(ply.getNameIndex(entity - CASTLE), new Coordinates(i,j)));			
+					map.addEntity(new Castle(ply.getNameIndex(entity - DefaultMap.CASTLE), new Coordinates(i,j)));			
 					
 				} else if(entity >= DefaultMap.TERRAIN && entity < (DefaultMap.TERRAIN + ply.numberPlayer())){
 					
 					map.addEntity(new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j))); 
 					
-				} else if(entity == DefaultMap.GREY) {
-					map.addEntity(new FreeCell("NO", new Coordinates(i,j)));
+				} else if(entity == DefaultMap.NULL) {
+					map.addEntity(new FreeCell(".", new Coordinates(i,j)));
 				} else {					
-					map.addEntity(new FreeCell(null, new Coordinates(i, j)));
+					map.addEntity(new FreeCell("x", new Coordinates(i, j)));
 				} 
 			}
 		}
