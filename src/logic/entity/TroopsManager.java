@@ -1,5 +1,8 @@
 package logic.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.troops.Troops;
 import obsidia.map.UseMap;
@@ -27,12 +30,12 @@ public class TroopsManager {
 		
 	}
 	
-	public Coordinates[] allConquerable(Troops troop) {
-		Coordinates[] cords = {null};
-		int j = 0;
+	public Set<Coordinates> allConquerable(Troops troop) {
+		
+		Set<Coordinates> cords = new HashSet<Coordinates>();
 		for (Coordinates i : troop.getCoordinates().near(troop.getMovement(), mp.getWidth(), mp.getHeight())) {
 			if(this.isConquerable(i, troop)) {
-				cords[j++] = i;
+				cords.add(i);
 			}
 		}
 		return cords;	

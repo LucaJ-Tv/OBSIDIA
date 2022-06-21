@@ -1,5 +1,7 @@
 package logic.entity;
 
+import java.util.Set;
+
 import obsidia.entities.buildings.Farm;
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.towers.*;
@@ -14,7 +16,7 @@ public class EntityManager {
 	
 	private final UseMap map = new UseMap();
 	private final PlayerList ply = new PlayerList();
-	private final TroopsManager tp = new TroopsManager();
+	private final TroopsManager trm = new TroopsManager();
 	TurnGUI GUI = new TurnGUI();
 	private Cells oldEntity;
 	
@@ -42,12 +44,19 @@ public class EntityManager {
 	}
 		
 	private void troopOnPress(Coordinates pos) {
-		//Chiamare GUI e Colorare bordo  celle accessibili
-		Coordinates[] cors = tp.allConquerable((Troops)map.getEntity(pos));
-		for(var i : cors) {
-			//TODO COLORE BORDO IN POS i
-		}
+		GUI.setBorder(true, trm.allConquerable((Troops)map.getEntity(pos)));		
 		GUI.setOnTroop(newTroop());
+	}
+	
+	private void towerOnPress() {
+		GUI.setOnTower(newTower());
+	}
+	
+	private void cellOnPress(Coordinates pos) {
+		GUI.setOnTroop(newTroop());
+		GUI.setOnTower(newTower());
+		//TODO Attivare tower, troop, farm (solo se vicine)
+		GUI.setOnFarm(newFarm());
 	}
 	
 	private Troops newTroop() {
@@ -67,11 +76,6 @@ public class EntityManager {
 		return troop;
 	}
 	
-	public void towerOnPress() {
-		//Attivare tower Button con livello Torre
-		GUI.setOnTower(newTower());
-	}
-	
 	private Towers newTower()	{
 		Towers tower = null;
 		if (oldEntity instanceof FreeCell) {
@@ -88,31 +92,32 @@ public class EntityManager {
 		}
 	}
 	
-	
-	public void farmButton() {
-		GUI.setOnFarm(newFarm());
-	}
-	
 	private Farm newFarm() {
 		return new Farm(oldEntity.getOwner(), oldEntity.getCoordinates());		
 	}
 	
-	private void cellOnPress(Coordinates pos) {
-		//Attivare tower, troop, farm (solo se vicine)
+	
+	public void addFarm() {
+		GUI.setOnFarm(newFarm());
 	}
 	
+	public void addTroop() {
+		
+	}
 	
+	public void addTOwer() {
+		
+	}	
 	
 	
 	
 	private void troopOnRelease(Coordinates pos) {
-		Coordinates[] cors = tp.allConquerable((Troops)map.getEntity(pos));
-		for(var i : cors) {
-			//TODO DISATTIVA COLORE BORDO IN POS i
-		}
 		
-		if(!oldEntity.equals(pos)) {
-			tp.posConquest(pos, (Troops)map.getEntity(pos));
+		//GUI.BorderOff(false, trm.allConquerable((Troops)map.getEntity(pos)));
+		
+		
+		if(!oldEntity.getCoordinates().equals(pos)) {
+			trm.posConquest(pos, (Troops)map.getEntity(pos));
 		}
 	}
 	
