@@ -1,65 +1,117 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import obsidia.map.DefaultMap;
+import obsidia.map.UseMap;
+import obsidia.utilities.Coordinates;
 
 public class TurnGUI {
 
-	
-	Frame turnFrame = new Frame();
+	private Frame turnFrame = new Frame();
+	private final Map<JButton,Coordinates> cells = new HashMap<>();
 	
 	public TurnGUI() {
-		turnFrame.add(new turnPane());
+		UseMap map = new UseMap();
+		new DefaultMap("Map2");
+		
+		turnFrame.add(new turnPane(map.getHeight(),map.getWidth()));
 		turnFrame.setLocationRelativeTo(null);
-		turnFrame.pack();
 		turnFrame.setVisible(true);
 	}
 	
 	@SuppressWarnings("serial")
 	public class turnPane extends JPanel{
 		
-		//TODO: il pannello della mappa va importato dalla defaultMap
-		JPanel mapPanel = new JPanel(new GridLayout(3,3));
-		JPanel buttonsPanel = new JPanel(new FlowLayout());
-		JPanel playerInfoPanel = new JPanel(new GridBagLayout());
+		//JPanel
+		JPanel mapPanel = new JPanel();
+		JPanel southPanel = new JPanel(new FlowLayout());
 		
-		JButton button1 = new JButton("..1..");
-		JButton button2 = new JButton("..2..");
-		JButton button3 = new JButton("..3..");
+		//JButton
+	    private final JButton troop = new JButton("TROOP");
+	    private final JButton tower = new JButton("TOWER");
+	    private final JButton farm = new JButton("FARM");
+	    private final JButton skip = new JButton("SKIP PLAYER >>");
+	    private final JButton exit = new JButton("EXIT");
+	    	
+	    //JLabel
+	    private JLabel moneyLabel = new JLabel("MONEY:");
+	    private JLabel money = new JLabel("10");
+	    private JLabel balanceLabel = new JLabel("BALANCE:");
+	    private JLabel balance = new JLabel("0");
 		
-		public turnPane() {
-			setLayout(new GridBagLayout());
+		public turnPane(int height, int width) {
+			setLayout(new BorderLayout());
+			southPanel.setBackground(Color.DARK_GRAY);
+
+			mapPanel.setLayout(new GridLayout(height,width));
 			
-			mapPanel.setBackground(Color.RED);
-			mapPanel.add(button1);
-			buttonsPanel.setBackground(Color.BLUE);
-			buttonsPanel.add(button2);
-			playerInfoPanel.setBackground(Color.GREEN);
-			playerInfoPanel.add(button3);
-			
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.fill = GridBagConstraints.VERTICAL;
-			
-			gbc.gridx = 0;
-	        gbc.gridy = 0;
-			add(mapPanel,gbc);
-			
-			gbc.gridx = 1;
-	        gbc.gridy = 0;
-			add(playerInfoPanel,gbc);
-			
-	        gbc.gridx = 0;
-	        gbc.gridy = 2;
-			gbc.fill = GridBagConstraints.HORIZONTAL;
-			gbc.gridwidth = 2;
-			add(buttonsPanel,gbc);
+	        for (int i=0; i<height; i++){
+	            for (int j=0; j<width; j++){
+	                final JButton jb = new JButton(" X ");
+	                jb.setBackground(Color.LIGHT_GRAY);
+	                cells.put(jb, new Coordinates(i,j));
+	                mapPanel.add(jb);
+	            }
+	        }
+	        
+	        troop.setBackground(Color.WHITE);
+	        tower.setBackground(Color.WHITE);
+	        farm.setBackground(Color.WHITE);
+	        skip.setBackground(Color.WHITE);
+	        exit.setBackground(Color.WHITE);
+	        moneyLabel.setForeground(Color.WHITE);
+	        money.setForeground(Color.WHITE);
+	        balanceLabel.setForeground(Color.WHITE);
+	        balance.setForeground(Color.WHITE);
+	        southPanel.add(troop);
+	        southPanel.add(tower);
+	        southPanel.add(farm);
+	        southPanel.add(skip);
+	        southPanel.add(exit);
+	        southPanel.add(moneyLabel);
+	        southPanel.add(money);
+	        southPanel.add(balanceLabel);
+	        southPanel.add(balance);
+	        
+	        add(mapPanel,BorderLayout.CENTER);
+	        add(southPanel,BorderLayout.SOUTH);
 		}
+		
+		public void setTroop(boolean b) {
+			troop.setEnabled(b);
+		}
+		
+		public void setTower(boolean b) {
+			tower.setEnabled(b);
+		}
+		
+		public void setFarm(boolean b) {
+			farm.setEnabled(b);
+		}
+		
+		public void setBorder() {
+			//tower.setBorder();
+		}
+		
+		public void updateBorder() {
+			mapPanel.validate();
+		}
+		
+		public void updateButton() {
+			southPanel.validate();
+		}
+		
 	}
+
 
 }
