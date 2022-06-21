@@ -105,7 +105,7 @@ public class EntityManager {
 		
 	}
 	
-	public void addTOwer() {
+	public void addTower() {
 		
 	}	
 	
