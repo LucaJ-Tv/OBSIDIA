@@ -8,13 +8,15 @@ import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
+import view.TurnGUI;
 
 public class EntityManager {
 	
 	private final UseMap map = new UseMap();
 	private final PlayerList ply = new PlayerList();
 	private final TroopMovement tp = new TroopMovement();
-	private Cells oldPos;
+	TurnGUI GUI = new TurnGUI();
+	private Cells oldEntity;
 	
 	public boolean matchOwner(Coordinates pos) {
 		if (map.getOwner(pos) == ply.getName()) {
@@ -22,87 +24,71 @@ public class EntityManager {
 		} else {
 			return false;
 		}
-	}
-
-	public boolean[] whichButton(Coordinates pos) {
-		
-		boolean[] bools = {false, false, false};
-		
-		if(matchOwner(pos)) {
-
-			if(map.getEntity(pos) instanceof Towers) {
-				bools[0] = true; 							//Tower button on
-			} else if(map.getEntity(pos) instanceof Troops) {
-				bools[1] = true; 							//Troop button on
-			} else if(map.getEntity(pos) instanceof FreeCell) {
-				bools[0] = true;
-				bools[1] = true;
-				if(true /* Casa Limitrofa a case o Castelli*/) {
-							bools[2] = true;						//Farm button on
-				}
-			}
-		}
-		return bools;
-	}
-	
-	
+	}	
 	
 	public void OnPress(Coordinates pos) {
 		if(matchOwner(pos)) {
 			
-			this.oldPos = map.getEntity(pos);
+			this.oldEntity = map.getEntity(pos);
 
-			if(this.oldPos instanceof Towers) {
+			if(this.oldEntity instanceof Towers) {
 				towerOnPress();
-			} else if(this.oldPos instanceof Troops) {
+			} else if(this.oldEntity instanceof Troops) {
 				troopOnPress(pos);						
-			} else if(this.oldPos instanceof FreeCell) {
+			} else if(this.oldEntity instanceof FreeCell) {
 				cellOnPress(pos);
 			}
 		}
 	}
-	
-	public void OnRelease(Coordinates pos) {
-		if (pos.samePosition(oldPos.getCoordinates()) && oldPos instanceof Troops) {
-			troopOnRelease(pos);
-		}
-	}
-	
-	
+		
 	private void troopOnPress(Coordinates pos) {
 		//Chiamare GUI e Colorare bordo  celle accessibili
 		Coordinates[] cors = tp.allConquerable((Troops)map.getEntity(pos));
 		for(var i : cors) {
 			//TODO COLORE BORDO IN POS i
 		}
-		// TurnGUI.troopButton(Troops)
+		//GUI.setTroop(true, newTroop());
+	}
+	
+	private Troops newTroop() {
+		Troops Troop = null;
+		if (oldEntity instanceof FreeCell) {
+			Troop = new TroopOne(oldEntity.getOwner(), oldEntity.getCoordinates());
+			
+		} else if(oldEntity instanceof TroopOne) {
+			Troop = new TroopTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			
+		} else if(oldEntity instanceof TroopTwo) {
+			Troop = new TroopThree(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			
+		} else if(oldEntity instanceof TroopThree) {
+			Troop = new TroopFour(oldEntity.getOwner(), oldEntity.getCoordinates());	
+		} 
+		return Troop;
 	}
 	
 	private void towerOnPress() {
+		newTower();
 		//Attivare tower Button con livello Torre
 	}
 	
-	public void towerButton()	{
-		if (oldPos instanceof FreeCell) {
-			map.addEntity(new TowerOne(oldPos.getOwner(), oldPos.getCoordinates()));			
-		} else if (oldPos instanceof TowerOne) {
-			map.addEntity(new TowerTwo(oldPos.getOwner(), oldPos.getCoordinates()));	
+	public void newTower()	{
+		if (oldEntity instanceof FreeCell) {
+			map.addEntity(new TowerOne(oldEntity.getOwner(), oldEntity.getCoordinates()));			
+		} else if (oldEntity instanceof TowerOne) {
+			map.addEntity(new TowerTwo(oldEntity.getOwner(), oldEntity.getCoordinates()));	
 		}
 	}
 	
-	public void troopButton() {
-		if (oldPos instanceof FreeCell) {
-			map.addEntity(new TroopOne(oldPos.getOwner(), oldPos.getCoordinates()));	
-			
-		} else if(oldPos instanceof TroopOne) {
-			map.addEntity(new TroopTwo(oldPos.getOwner(), oldPos.getCoordinates()));	
-			
-		} else if(oldPos instanceof TroopTwo) {
-			map.addEntity(new TroopThree(oldPos.getOwner(), oldPos.getCoordinates()));	
-			
-		} else if(oldPos instanceof TroopThree) {
-			map.addEntity(new TroopFour(oldPos.getOwner(), oldPos.getCoordinates()));	
-		} 
+	public void OnRelease(Coordinates pos) {
+		if (pos.samePosition(oldEntity.getCoordinates()) && oldEntity instanceof Troops) {
+			troopOnRelease(pos);
+		}
+	}
+	
+	
+	public void farmButton() {
+		
 	}
 	
 	private void cellOnPress(Coordinates pos) {
@@ -119,7 +105,7 @@ public class EntityManager {
 			//TODO DISATTIVA COLORE BORDO IN POS i
 		}
 		
-		if(!oldPos.equals(pos)) {
+		if(!oldEntity.equals(pos)) {
 			tp.posConquest(pos, (Troops)map.getEntity(pos));
 		}
 	}
