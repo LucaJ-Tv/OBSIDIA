@@ -15,7 +15,7 @@ public class TroopTwo extends AbstractCell implements Troops{
 	private static final int MOVEMENT = 4; //For a possible Troop that can move more than 4 cells
 	private static final int OFFENCE = 2;
 	
-	public TroopTwo(String ownerID, Coordinates xy, int balance, int lvDefence) {
+	public TroopTwo(String ownerID, Coordinates xy) {
 		super(ownerID, xy);
 	}
 	
