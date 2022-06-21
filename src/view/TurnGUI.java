@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import obsidia.entities.buildings.Farm;
+import obsidia.entities.towers.Towers;
+import obsidia.entities.troops.Troops;
 import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
@@ -20,36 +24,36 @@ public class TurnGUI {
 	private Frame turnFrame = new Frame();
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
 	
+	//JPanel
+	JPanel mapPanel = new JPanel();
+	JPanel southPanel = new JPanel(new FlowLayout());
+	
+	//JButton
+	private final JButton troop = new JButton("TROOP");
+	private final JButton tower = new JButton("TOWER");
+	private final JButton farm = new JButton("FARM");
+	private final JButton skip = new JButton("SKIP PLAYER >>");
+	private final JButton exit = new JButton("EXIT");
+	
+	//JLabel
+	private JLabel moneyLabel = new JLabel("MONEY:");
+	private JLabel money = new JLabel("10");
+	private JLabel balanceLabel = new JLabel("BALANCE:");
+	private JLabel balance = new JLabel("0");
+	
 	public TurnGUI() {
 		UseMap map = new UseMap();
 		new DefaultMap("Map2");
 		
-		turnFrame.add(new turnPane(map.getHeight(),map.getWidth()));
+		turnFrame.add(new initPanel(map.getHeight(),map.getWidth()));
 		turnFrame.setLocationRelativeTo(null);
 		turnFrame.setVisible(true);
 	}
 	
 	@SuppressWarnings("serial")
-	public class turnPane extends JPanel{
+	public class initPanel extends JPanel{
 		
-		//JPanel
-		JPanel mapPanel = new JPanel();
-		JPanel southPanel = new JPanel(new FlowLayout());
-		
-		//JButton
-	    private final JButton troop = new JButton("TROOP");
-	    private final JButton tower = new JButton("TOWER");
-	    private final JButton farm = new JButton("FARM");
-	    private final JButton skip = new JButton("SKIP PLAYER >>");
-	    private final JButton exit = new JButton("EXIT");
-	    	
-	    //JLabel
-	    private JLabel moneyLabel = new JLabel("MONEY:");
-	    private JLabel money = new JLabel("10");
-	    private JLabel balanceLabel = new JLabel("BALANCE:");
-	    private JLabel balance = new JLabel("0");
-		
-		public turnPane(int height, int width) {
+		public initPanel(int height, int width) {
 			setLayout(new BorderLayout());
 			southPanel.setBackground(Color.DARK_GRAY);
 
@@ -61,6 +65,7 @@ public class TurnGUI {
 	                jb.setBackground(Color.LIGHT_GRAY);
 	                cells.put(jb, new Coordinates(i,j));
 	                mapPanel.add(jb);
+	                jb.addActionListener(actionL);
 	            }
 	        }
 	        
@@ -86,31 +91,63 @@ public class TurnGUI {
 	        add(mapPanel,BorderLayout.CENTER);
 	        add(southPanel,BorderLayout.SOUTH);
 		}
+			
+	}
+	
+	ActionListener actionL = e -> {
+		var position = cells.get(e.getSource());
+		System.out.println(position);
+	};
+	
+	public void setOnTroop(Troops c) {
+		troop.setEnabled(true);
+		troop.setIcon(c.getIcon());
 		
-		public void setTroop(boolean b) {
-			troop.setEnabled(b);
-		}
+		troop.addActionListener(e -> {
+			
+		});
+	}
+	
+	public void setOffTroop() {
+		troop.setEnabled(false);
+	}
+	
+	public void setOnTower(Towers c) {
+		tower.setEnabled(true);
+		tower.setIcon(c.getIcon());
 		
-		public void setTower(boolean b) {
-			tower.setEnabled(b);
-		}
+		tower.addActionListener(e -> {
+			
+		});
+	}
+	
+	public void setOffTower() {
+		tower.setEnabled(false);
+	}
+	
+	public void setOnFarm(Farm c) {
+		farm.setEnabled(true);
+		farm.setIcon(c.getIcon());
 		
-		public void setFarm(boolean b) {
-			farm.setEnabled(b);
-		}
-		
-		public void setBorder() {
-			//tower.setBorder();
-		}
-		
-		public void updateBorder() {
-			mapPanel.validate();
-		}
-		
-		public void updateButton() {
-			southPanel.validate();
-		}
-		
+		farm.addActionListener(e -> {
+			
+		});
+	}
+	
+	public void setOffFarm() {
+		farm.setEnabled(false);
+	}
+	
+	public void setBorder() {
+		//tower.setBorder();
+	}
+	
+	public void updateBorder() {
+		mapPanel.validate();
+	}
+	
+	public void updateButton() {
+		southPanel.validate();
 	}
 
 
