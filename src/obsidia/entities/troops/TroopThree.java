@@ -1,5 +1,9 @@
 package obsidia.entities.troops;
 
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
@@ -43,6 +47,11 @@ public class TroopThree extends AbstractCell implements Troops{
 	@Override
 	public int getLevel() {
 		return 3;
+	}
+	
+	@Override
+	public ImageIcon getIcon() {
+		return new ImageIcon(PATH + File.separator + "troop3.png");
 	}
 
 }

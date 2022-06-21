@@ -1,5 +1,7 @@
 package obsidia.entities.cells;
 
+import javax.swing.ImageIcon;
+
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
@@ -26,5 +28,10 @@ public class FreeCell extends AbstractCell{
 	@Override
 	public int getCost() {
 		return FreeCell.DEFAULT_COST;
+	}
+	
+	@Override
+	public ImageIcon getIcon() {
+		return new ImageIcon("");
 	}
 }

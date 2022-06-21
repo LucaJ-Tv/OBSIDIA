@@ -1,5 +1,9 @@
 package obsidia.entities.towers;
 
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
@@ -33,4 +37,8 @@ public class TowerOne extends AbstractCell implements Towers{
 		return 1;
 	}
 	
+	@Override
+	public ImageIcon getIcon() {
+		return new ImageIcon(PATH + File.separator + "tower1.png");
+	}
 }

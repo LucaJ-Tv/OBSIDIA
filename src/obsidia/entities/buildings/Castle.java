@@ -1,5 +1,9 @@
 package obsidia.entities.buildings;
 
+import java.io.File;
+
+import javax.swing.ImageIcon;
+
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
@@ -29,5 +33,10 @@ public class Castle extends AbstractCell{
 	@Override
 	public int getCost() {
 		return Castle.COST;
+	}
+	
+	@Override
+	public ImageIcon getIcon() {
+		return new ImageIcon(PATH + File.separator + "castle.png");
 	}
 }
