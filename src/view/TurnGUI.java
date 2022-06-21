@@ -7,11 +7,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import logic.entity.EntityManager;
 import obsidia.entities.buildings.Farm;
 import obsidia.entities.towers.Towers;
 import obsidia.entities.troops.Troops;
@@ -23,6 +25,7 @@ public class TurnGUI {
 
 	private Frame turnFrame = new Frame();
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
+	private EntityManager logicManager = new EntityManager();
 	
 	//JPanel
 	JPanel mapPanel = new JPanel();
@@ -96,7 +99,8 @@ public class TurnGUI {
 	
 	ActionListener actionL = e -> {
 		var position = cells.get(e.getSource());
-		System.out.println(position);
+		this.logicManager.OnPress(position);
+		updateButton();
 	};
 	
 	public void setOnTroop(Troops c) {
@@ -104,7 +108,8 @@ public class TurnGUI {
 		troop.setIcon(c.getIcon());
 		
 		troop.addActionListener(e -> {
-			
+			logicManager.addTroop(c);
+			updateBorder();
 		});
 	}
 	
@@ -117,7 +122,8 @@ public class TurnGUI {
 		tower.setIcon(c.getIcon());
 		
 		tower.addActionListener(e -> {
-			
+			logicManager.addTower(c);
+			updateBorder();
 		});
 	}
 	
@@ -130,7 +136,8 @@ public class TurnGUI {
 		farm.setIcon(c.getIcon());
 		
 		farm.addActionListener(e -> {
-			
+			logicManager.addFarm(c);
+			updateBorder();
 		});
 	}
 	
@@ -138,15 +145,15 @@ public class TurnGUI {
 		farm.setEnabled(false);
 	}
 	
-	public void setBorder() {
-		//tower.setBorder();
+	public void setBorder(boolean b, Set<Coordinates> c) {
+		//TODO: set border if b is true nelle coordinates del set
 	}
 	
-	public void updateBorder() {
+	private void updateBorder() {
 		mapPanel.validate();
 	}
 	
-	public void updateButton() {
+	private void updateButton() {
 		southPanel.validate();
 	}
 
