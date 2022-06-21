@@ -97,17 +97,17 @@ public class EntityManager {
 	}
 	
 	
-	public void addFarm() {
-		GUI.setOnFarm(newFarm());
+	public void addFarm(Farm farm) {
+		map.addEntity(farm);
 	}
 	
-	public void addTroop() {
-		
+	public void addTroop(Troops troop) {
+		map.addEntity(troop);
 	}
 	
-	public void addTower() {
-		
-	}	
+	public void addTower(Towers tower) {
+		map.addEntity(tower);
+	}
 	
 	
 	
