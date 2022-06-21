@@ -26,6 +26,10 @@ public class Coordinates {
 		return "x: " + this.x  + "y: " + this.y;
 	}
 	
+	public boolean samePosition(Coordinates p2) {
+		return this.getX() == p2.getX() && this.getY() == p2.getY();
+	}
+	
 	public int distance(final Coordinates other) {
 		final int Dx = Math.abs(other.getX() - this.getX());
 		final int Dy = Math.abs(other.getY() - this.getY());
