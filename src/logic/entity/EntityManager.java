@@ -1,6 +1,5 @@
 package logic.entity;
 
-import logic.troop.TroopMovement;
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.towers.*;
 import obsidia.entities.troops.*;
@@ -14,7 +13,7 @@ public class EntityManager {
 	
 	private final UseMap map = new UseMap();
 	private final PlayerList ply = new PlayerList();
-	private final TroopMovement tp = new TroopMovement();
+	private final TroopsManager tp = new TroopsManager();
 	TurnGUI GUI = new TurnGUI();
 	private Cells oldEntity;
 	
@@ -47,37 +46,39 @@ public class EntityManager {
 		for(var i : cors) {
 			//TODO COLORE BORDO IN POS i
 		}
-		//GUI.setTroop(true, newTroop());
+		GUI.setOnTroop(newTroop());
 	}
 	
 	private Troops newTroop() {
-		Troops Troop = null;
+		Troops troop = null;
 		if (oldEntity instanceof FreeCell) {
-			Troop = new TroopOne(oldEntity.getOwner(), oldEntity.getCoordinates());
+			troop = new TroopOne(oldEntity.getOwner(), oldEntity.getCoordinates());
 			
 		} else if(oldEntity instanceof TroopOne) {
-			Troop = new TroopTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			troop = new TroopTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
 			
 		} else if(oldEntity instanceof TroopTwo) {
-			Troop = new TroopThree(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			troop = new TroopThree(oldEntity.getOwner(), oldEntity.getCoordinates());	
 			
 		} else if(oldEntity instanceof TroopThree) {
-			Troop = new TroopFour(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			troop = new TroopFour(oldEntity.getOwner(), oldEntity.getCoordinates());	
 		} 
-		return Troop;
+		return troop;
 	}
 	
-	private void towerOnPress() {
-		newTower();
+	public void towerOnPress() {
 		//Attivare tower Button con livello Torre
+		GUI.setOnTower(newTower());
 	}
 	
-	public void newTower()	{
+	private Towers newTower()	{
+		Towers tower = null;
 		if (oldEntity instanceof FreeCell) {
-			map.addEntity(new TowerOne(oldEntity.getOwner(), oldEntity.getCoordinates()));			
+			tower = new TowerOne(oldEntity.getOwner(), oldEntity.getCoordinates());			
 		} else if (oldEntity instanceof TowerOne) {
-			map.addEntity(new TowerTwo(oldEntity.getOwner(), oldEntity.getCoordinates()));	
+			tower = new TowerTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
 		}
+		return tower;
 	}
 	
 	public void OnRelease(Coordinates pos) {

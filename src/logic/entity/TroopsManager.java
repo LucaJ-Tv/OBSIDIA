@@ -1,11 +1,11 @@
-package logic.troop;
+package logic.entity;
 
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.troops.Troops;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
 
-public class TroopMovement {
+public class TroopsManager {
 	
 	private final UseMap mp = new UseMap();
 	
@@ -44,5 +44,7 @@ public class TroopMovement {
 			mp.addEntity(new FreeCell(troop.getOwner(), troop.getCoordinates()));	
 		}
 	}
+	
+	
 	
 }
