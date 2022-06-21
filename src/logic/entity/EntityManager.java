@@ -1,5 +1,6 @@
 package logic.entity;
 
+import obsidia.entities.buildings.Farm;
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.towers.*;
 import obsidia.entities.troops.*;
@@ -89,7 +90,11 @@ public class EntityManager {
 	
 	
 	public void farmButton() {
-		
+		GUI.setOnFarm(newFarm());
+	}
+	
+	private Farm newFarm() {
+		return new Farm(oldEntity.getOwner(), oldEntity.getCoordinates());		
 	}
 	
 	private void cellOnPress(Coordinates pos) {
