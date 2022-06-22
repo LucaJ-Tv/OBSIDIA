@@ -1,26 +1,28 @@
 package logic.entity;
 
-import obsidia.entities.buildings.Farm;
+import java.awt.Color;
+import java.util.Collections;
+import java.util.Set;
+
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.towers.*;
 import obsidia.entities.troops.*;
 import obsidia.map.Cells;
 import obsidia.map.UseMap;
+import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
-import view.TurnGUI;
 
-public class EntityManager {
+public class EntityManager implements Manager{
 	
 	private final UseMap map = new UseMap();
 	private final PlayerList ply = new PlayerList();
-	private final TroopsManager trm = new TroopsManager();
-	private final TowerManager twm = new TowerManager();
-	private final FarmManager frm = new FarmManager();
-	private final TurnGUI GUI = new TurnGUI();
+	private final TroopsManager troop = new TroopsManager();
+	private final TowerManager tower = new TowerManager();
+	private final FarmManager farm = new FarmManager();
 	
 	private Cells oldEntity;
-	
+
 	private boolean matchOwner(Coordinates pos) {
 		if (map.getOwner(pos) == ply.getName()) {
 			return true;
@@ -29,69 +31,63 @@ public class EntityManager {
 		}
 	}	
 	
-	public void OnPress(Coordinates pos) {
+	@Override
+	public void insertPlayer(String name, Color color) {
+		ply.addPlayer(new Player(name, color));
+	}
+	
+	@Override
+	public boolean setClickedPosition(Coordinates pos) {
 		if(matchOwner(pos)) {
-			
 			this.oldEntity = map.getEntity(pos);
-
-			if(this.oldEntity instanceof Towers) {
-				towerOnPress();
-			} else if(this.oldEntity instanceof Troops) {
-				troopOnPress(pos);						
-			} else if(this.oldEntity instanceof FreeCell) {
-				cellOnPress(pos);
-			}
-		}
-	}
-		
-	private void troopOnPress(Coordinates pos) {
-		GUI.setBorder(true, trm.allConquerable((Troops)this.oldEntity));		
-		GUI.setOnTroop(trm.newTroop(this.oldEntity));
-	}
-	
-	private void towerOnPress() {
-		GUI.setOnTower(twm.newTower(this.oldEntity));
-	}
-	
-	private void cellOnPress(Coordinates pos) {
-		
-		GUI.setOnTroop(trm.newTroop(this.oldEntity));
-		GUI.setOnTower(twm.newTower(this.oldEntity));
-		
-		if(frm.inRange(pos)) {
-			GUI.setOnFarm(frm.newFarm(this.oldEntity));			
+			return true;
+		} else {
+			this.oldEntity = null;
+			return false;
 		}
 	}
 	
-	public void OnRelease(Coordinates pos) {
-		if (pos.samePosition(oldEntity.getCoordinates()) && oldEntity instanceof Troops) {
-			troopOnRelease(pos);
-		}
+	@Override
+	public boolean buttonTroop() {
+		return (this.oldEntity instanceof Troops || this.oldEntity instanceof FreeCell);
 	}
 	
-	
-	public void addFarm(Farm farm) {
-		map.addEntity(farm);
+	@Override
+	public boolean buttonTower() {
+		return (this.oldEntity instanceof Towers || this.oldEntity instanceof FreeCell);
 	}
 	
-	public void addTroop(Troops troop) {
-		map.addEntity(troop);
+	@Override
+	public boolean buttonFarm() {
+		return (this.oldEntity instanceof FreeCell && farm.inRange(oldEntity.getCoordinates()));
 	}
 	
-	public void addTower(Towers tower) {
-		map.addEntity(tower);
+	@Override
+	public Set<Coordinates> borderActivate(){
+		if(oldEntity instanceof Troops) {
+			return troop.allConquerable((Troops)this.oldEntity);
+		}			
+		return Collections.emptySet();	
 	}
 	
+	@Override
+	public void newTroop() {
+		map.addEntity(troop.newTroop(this.oldEntity));
+	}
 	
+	@Override
+	public void newTower() {
+		map.addEntity(tower.newTower(this.oldEntity));
+	}
 	
-	private void troopOnRelease(Coordinates pos) {
-		
-		GUI.setBorder(false, trm.allConquerable((Troops)oldEntity));
-		
-		
-		if(!oldEntity.getCoordinates().equals(pos)) {
-			trm.posConquest(pos, (Troops)map.getEntity(pos));
-		}
+	@Override
+	public void newFarm() {
+		map.addEntity(farm.newFarm(this.oldEntity));
+	}
+	
+	@Override
+	public void moveTroop(Coordinates pos) {
+		map.moveEntity(this.oldEntity, pos);
 	}
 	
 	
