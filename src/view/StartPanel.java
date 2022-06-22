@@ -17,22 +17,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import logic.StartGame;
-import obsidia.players.Player;
-import obsidia.players.PlayerList;
+import logic.entity.Manager;
 
 @SuppressWarnings("serial")
 public class StartPanel extends JPanel{
 	
-	private StartGame startGame = new StartGame();
-	private Frame frame = new Frame();
+	private final Manager manager = null;
 	
-	private int count = 0;
+	private Frame frame = new Frame();
+	private GridBagConstraints gbc = new GridBagConstraints();
+	
+	private int count = 1;
 	private final int NMAXPLAYER = 5;
 	private List<Color> listColor = new ArrayList<>();
 	private Random ran = new Random();
-	private GridBagConstraints gbc = new GridBagConstraints();
+	private Color tempColor;
 	
+	private JLabel title = new JLabel("OBSIDIA");
+    
 	public StartPanel() {
 		//inizialise color for player
 		listColor.addAll(Arrays.asList(
@@ -48,21 +50,28 @@ public class StartPanel extends JPanel{
 		setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(new GridBagLayout());
         
+        //inizialise all Component
+    	//panel which adds players
+        JPanel playerPanel = new JPanel(new GridBagLayout());
+    	JButton bAddPlayer = createButton("addPlayer");
+        JLabel insert = new JLabel("Inserisci nome");
+        JTextField nameInser = new JTextField(1);
+        
+        //panel with buttons
+        JPanel buttonsPanel = new JPanel(new GridBagLayout());
+        JButton bStart = createButton("start");
+        JButton bSettings = createButton("settings");
+        JButton bExit = createButton("exit");
+        
         //title
-        JLabel label = new JLabel("OBSIDIA");
-        label.setFont(new Font("Ink Free",Font.BOLD, 80));
+        title.setFont(new Font("Ink Free",Font.BOLD, 80));
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
-        add(label, gbc);
+        add(title, gbc);
         
-        //panel which adds players
-        JPanel playerPanel = new JPanel(new GridBagLayout());
-        
-        JButton bAddPlayer = createButton("addPlayer");
-        JLabel insert = new JLabel("Inserisci nome");
+        //playerPanel >> bAddPlayer + isert +nameInser
         insert.setHorizontalAlignment(JLabel.CENTER);
         insert.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
-        JTextField nameInser = new JTextField(1);
         nameInser.setPreferredSize(new Dimension(10,20));
         
         gbc.anchor = GridBagConstraints.CENTER;
@@ -72,29 +81,36 @@ public class StartPanel extends JPanel{
         playerPanel.add(nameInser, gbc);
         
         bAddPlayer.addActionListener(e -> {
-        	startGame.
-        	//add of a new player
-        	listPlayer.add(nameInser.getText());
-        	PlayerList plyList = new PlayerList();
-        	plyList.addPlayer(new Player(nameInser.getText(), listColor.remove(ran.nextInt(listColor.size()))));
+        	//add of a new player and write the name bottom the TextField
+        	JLabel lab = new JLabel((count++) + ". " + nameInser.getText());
+        	try {
+        		tempColor = listColor.remove(ran.nextInt(listColor.size()));
+        		this.manager.insertPlayer(nameInser.getText(), tempColor);
+        		lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        		lab.setForeground(tempColor);
+        	}catch(java.util.NoSuchElementException ex) {
+        		System.out.println("Not enought color");
+        		System.out.println(ex);
+        		System.exit(1);
+        	}
         	
-        	//write the name bottom the TextField
         	gbc.gridwidth = GridBagConstraints.REMAINDER;
-        	JLabel lab = new JLabel((count +1) + ". " + nameInser.getText());
-        	lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-        	lab.setForeground(plyList.getColorIndex(count++));
         	playerPanel.add(lab ,gbc);
         	
         	nameInser.setText("");
-        	if(listPlayer.size() >= NMAXPLAYER) {
+        	
+        	//check min number of Player
+        	if(count > 2) {
+        		bStart.setEnabled(true);
+        	}
+        	
+        	//check max number of Player
+        	if( count > NMAXPLAYER) {
         		bAddPlayer.setEnabled(false);
         		bAddPlayer.setBackground(Color.DARK_GRAY);
         		nameInser.setEnabled(false);
         	}
         	
-        	if(listPlayer.size() >= 2) {
-        		bStart.setEnabled(true);
-        	}
         	
         	this.validate();
         	
@@ -103,21 +119,14 @@ public class StartPanel extends JPanel{
         gbc.weighty = 5;
         add(playerPanel, gbc);
         
-        
-        //panel with buttons
-        JPanel buttons = new JPanel(new GridBagLayout());
-        
-        JButton bStart = createButton("start");
         bStart.setEnabled(false);
-        JButton bSettings = createButton("settings");
-        JButton bExit = createButton("exit");
-        
+
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
-        buttons.add(bStart,gbc);
-        buttons.add(bSettings,gbc);
-        buttons.add(bExit,gbc);
+        buttonsPanel.add(bStart,gbc);
+        buttonsPanel.add(bSettings,gbc);
+        buttonsPanel.add(bExit,gbc);
         
         bStart.addActionListener(e -> {
         	frame.setVisible(false);
@@ -138,7 +147,7 @@ public class StartPanel extends JPanel{
         });
         
         gbc.weighty = 5;
-        add(buttons, gbc);
+        add(buttonsPanel, gbc);
         
         frame.add(this);
         frame.setVisible(true);
