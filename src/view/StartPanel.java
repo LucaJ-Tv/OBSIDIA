@@ -17,12 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import logic.entity.EntityManager;
 import logic.entity.Manager;
 
 @SuppressWarnings("serial")
 public class StartPanel extends JPanel{
 	
-	private final Manager manager = null;
+	private final Manager manager;
 	
 	private Frame frame = new Frame();
 	private GridBagConstraints gbc = new GridBagConstraints();
@@ -46,6 +47,7 @@ public class StartPanel extends JPanel{
 				new Color(240,250,20),
 				new Color(250,150,30)
 				));
+		this.manager = new EntityManager();
 		
 		setBorder(new EmptyBorder(5, 5, 5, 5));
         setLayout(new GridBagLayout());
@@ -129,8 +131,8 @@ public class StartPanel extends JPanel{
         buttonsPanel.add(bExit,gbc);
         
         bStart.addActionListener(e -> {
-        	frame.setVisible(false);
-        	new TurnGUI();
+        	//frame.setVisible(false);
+        	//new TurnGUI();
         });
         
         bSettings.addActionListener(e -> {
