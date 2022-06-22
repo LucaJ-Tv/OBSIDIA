@@ -38,5 +38,9 @@ public class FarmManager {
 		return (entity instanceof FreeCell && inRange(entity.getCoordinates()));
 	}
 	
+	protected int getCost(String player) {
+		return map.numberFarm(player)*5 + Farm.COST;
+	}
+	
 	
 }
