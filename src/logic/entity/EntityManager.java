@@ -48,17 +48,17 @@ public class EntityManager implements Manager{
 	
 	@Override
 	public boolean buttonTroop() {
-		return troop.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity), ply.getCoins());
+		return troop.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity));
 	}
 	
 	@Override
 	public boolean buttonTower() {
-		return tower.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity), ply.getCoins());
+		return tower.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity));
 	}
 	
 	@Override
 	public boolean buttonFarm() {
-		return farm.isBuildableCell(oldEntity) && coin.enoughCoins(farm.newFarm(oldEntity), ply.getCoins());
+		return farm.isBuildableCell(oldEntity) && coin.enoughCoins(farm.newFarm(oldEntity));
 	}
 	
 	@Override
@@ -71,17 +71,23 @@ public class EntityManager implements Manager{
 	
 	@Override
 	public void newTroop() {
-		map.addEntity(troop.newTroop(this.oldEntity));
+		Cells tr = troop.newTroop(this.oldEntity);
+		map.addEntity(tr);
+		ply.addCoins(-tr.getCost());
 	}
 	
 	@Override
 	public void newTower() {
-		map.addEntity(tower.newTower(this.oldEntity));
+		Cells tw = tower.newTower(this.oldEntity);
+		map.addEntity(tw);
+		ply.addCoins(-tw.getCost());
 	}
 	
 	@Override
 	public void newFarm() {
-		map.addEntity(farm.newFarm(this.oldEntity));
+		Cells fr = tower.newTower(this.oldEntity);
+		map.addEntity(fr);
+		ply.addCoins(-fr.getCost());
 	}
 	
 	@Override
