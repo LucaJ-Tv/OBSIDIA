@@ -1,6 +1,6 @@
 package logic.entity;
 
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Set;
 
 import obsidia.entities.cells.FreeCell;
@@ -36,8 +36,7 @@ public class TroopsManager {
 	}
 	
 	public Set<Coordinates> allConquerable(Troops troop) {
-		
-		Set<Coordinates> cords = new HashSet<Coordinates>();
+		Set<Coordinates> cords = Collections.emptySet();
 		for (Coordinates i : troop.getCoordinates().near(troop.getMovement(), mp.getWidth(), mp.getHeight())) {
 			if(this.isConquerable(i, troop)) {
 				cords.add(i);
