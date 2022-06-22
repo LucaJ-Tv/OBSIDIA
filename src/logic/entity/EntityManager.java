@@ -1,7 +1,5 @@
 package logic.entity;
 
-import java.util.Set;
-
 import obsidia.entities.buildings.Farm;
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.towers.*;
@@ -17,10 +15,13 @@ public class EntityManager {
 	private final UseMap map = new UseMap();
 	private final PlayerList ply = new PlayerList();
 	private final TroopsManager trm = new TroopsManager();
-	TurnGUI GUI = new TurnGUI();
+	private final TowerManager twm = new TowerManager();
+	private final FarmManager frm = new FarmManager();
+	private final TurnGUI GUI = new TurnGUI();
+	
 	private Cells oldEntity;
 	
-	public boolean matchOwner(Coordinates pos) {
+	private boolean matchOwner(Coordinates pos) {
 		if (map.getOwner(pos) == ply.getName()) {
 			return true;
 		} else {
@@ -44,56 +45,28 @@ public class EntityManager {
 	}
 		
 	private void troopOnPress(Coordinates pos) {
-		GUI.setBorder(true, trm.allConquerable((Troops)map.getEntity(pos)));		
-		GUI.setOnTroop(newTroop());
+		GUI.setBorder(true, trm.allConquerable((Troops)this.oldEntity));		
+		GUI.setOnTroop(trm.newTroop(this.oldEntity));
 	}
 	
 	private void towerOnPress() {
-		GUI.setOnTower(newTower());
+		GUI.setOnTower(twm.newTower(this.oldEntity));
 	}
 	
 	private void cellOnPress(Coordinates pos) {
-		GUI.setOnTroop(newTroop());
-		GUI.setOnTower(newTower());
-		//TODO Attivare tower, troop, farm (solo se vicine)
-		GUI.setOnFarm(newFarm());
-	}
-	
-	private Troops newTroop() {
-		Troops troop = null;
-		if (oldEntity instanceof FreeCell) {
-			troop = new TroopOne(oldEntity.getOwner(), oldEntity.getCoordinates());
-			
-		} else if(oldEntity instanceof TroopOne) {
-			troop = new TroopTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
-			
-		} else if(oldEntity instanceof TroopTwo) {
-			troop = new TroopThree(oldEntity.getOwner(), oldEntity.getCoordinates());	
-			
-		} else if(oldEntity instanceof TroopThree) {
-			troop = new TroopFour(oldEntity.getOwner(), oldEntity.getCoordinates());	
-		} 
-		return troop;
-	}
-	
-	private Towers newTower()	{
-		Towers tower = null;
-		if (oldEntity instanceof FreeCell) {
-			tower = new TowerOne(oldEntity.getOwner(), oldEntity.getCoordinates());			
-		} else if (oldEntity instanceof TowerOne) {
-			tower = new TowerTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
+		
+		GUI.setOnTroop(trm.newTroop(this.oldEntity));
+		GUI.setOnTower(twm.newTower(this.oldEntity));
+		
+		if(frm.inRange(pos)) {
+			GUI.setOnFarm(frm.newFarm(this.oldEntity));			
 		}
-		return tower;
 	}
 	
 	public void OnRelease(Coordinates pos) {
 		if (pos.samePosition(oldEntity.getCoordinates()) && oldEntity instanceof Troops) {
 			troopOnRelease(pos);
 		}
-	}
-	
-	private Farm newFarm() {
-		return new Farm(oldEntity.getOwner(), oldEntity.getCoordinates());		
 	}
 	
 	
@@ -113,7 +86,7 @@ public class EntityManager {
 	
 	private void troopOnRelease(Coordinates pos) {
 		
-		//GUI.BorderOff(false, trm.allConquerable((Troops)map.getEntity(pos)));
+		GUI.setBorder(false, trm.allConquerable((Troops)oldEntity));
 		
 		
 		if(!oldEntity.getCoordinates().equals(pos)) {

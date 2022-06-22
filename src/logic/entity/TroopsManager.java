@@ -4,7 +4,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import obsidia.entities.cells.FreeCell;
+import obsidia.entities.troops.TroopFour;
+import obsidia.entities.troops.TroopOne;
+import obsidia.entities.troops.TroopThree;
+import obsidia.entities.troops.TroopTwo;
 import obsidia.entities.troops.Troops;
+import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
 
@@ -48,6 +53,21 @@ public class TroopsManager {
 		}
 	}
 	
-	
+	protected Troops newTroop(Cells oldEntity) {
+		Troops troop = null;
+		if (oldEntity instanceof FreeCell) {
+			troop = new TroopOne(oldEntity.getOwner(), oldEntity.getCoordinates());
+			
+		} else if(oldEntity instanceof TroopOne) {
+			troop = new TroopTwo(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			
+		} else if(oldEntity instanceof TroopTwo) {
+			troop = new TroopThree(oldEntity.getOwner(), oldEntity.getCoordinates());	
+			
+		} else if(oldEntity instanceof TroopThree) {
+			troop = new TroopFour(oldEntity.getOwner(), oldEntity.getCoordinates());	
+		} 
+		return troop;
+	}
 	
 }
