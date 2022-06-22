@@ -32,6 +32,10 @@ public class Player{
 	protected int getCoins() {
 		return coins;
 	}
+	
+	protected void addCoind(int coins) {
+		this.coins += coins;
+	}
 
 	protected void setCoins(int coins) {
 		this.coins = coins;
