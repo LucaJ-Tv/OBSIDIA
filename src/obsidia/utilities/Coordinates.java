@@ -61,7 +61,7 @@ public class Coordinates {
 						nx < mapWidth &&
 						ny >= 0 &&
 						ny < mapHeight &&
-						(nx == this.x && ny == this.y)
+						(nx != this.x && ny != this.y)
 					) {
 					cords[ni++] = new Coordinates(nx, ny);
 				}
