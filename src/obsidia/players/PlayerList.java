@@ -28,7 +28,11 @@ public class PlayerList {
 	}
 	
 	public void setCoins(final int coins) {
-		PLY.getFirst().setCoins(coins);
+		PLY.getFirst().addCoind(coins);
+	}
+	
+	public void addCoins(int idBalance) {
+		PLY.getFirst().setCoins(idBalance);
 	}
 	
 	public Player nextPlayer() {
@@ -52,4 +56,5 @@ public class PlayerList {
 	public int numberPlayer() {
 		return PLY.size();
 	}
+
 }
