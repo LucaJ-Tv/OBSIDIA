@@ -55,7 +55,7 @@ public class UseMap {
 	public int numberFarm(final String ID) {
 		int num = 0;
 		for ( final Cells i : UseMap.MAP.values() ) {
-			if(i instanceof Farm) {
+			if(i instanceof Farm && i.getOwner() == ID) {
 				num ++;
 			}
 		}
