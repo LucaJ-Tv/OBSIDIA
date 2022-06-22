@@ -69,4 +69,8 @@ public class TroopsManager {
 		return troop;
 	}
 	
+	protected boolean isBuildableCell(Cells entity) {
+		return (entity instanceof Troops || entity instanceof FreeCell);
+	}
+	
 }

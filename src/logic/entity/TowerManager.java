@@ -17,4 +17,10 @@ public class TowerManager {
 		}
 		return tower;
 	}
+	
+	
+	protected boolean isBuildableCell(Cells entity) {
+		return (entity instanceof Towers || entity instanceof FreeCell);
+		
+	}
 }

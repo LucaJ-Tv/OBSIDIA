@@ -2,6 +2,7 @@ package logic.entity;
 
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.buildings.Farm;
+import obsidia.entities.cells.FreeCell;
 import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
@@ -18,7 +19,7 @@ public class FarmManager {
 		return map.getOwner(i) == map.getOwner(pos);
 	}
 
-	protected boolean inRange(Coordinates pos) {
+	private boolean inRange(Coordinates pos) {
 		Coordinates[] cord = pos.near(1, map.getWidth(), map.getHeight());
 		
 		for(var i : cord) {
@@ -32,4 +33,10 @@ public class FarmManager {
 	protected Farm newFarm(Cells oldEntity) {
 		return new Farm(oldEntity.getOwner(), oldEntity.getCoordinates());		
 	}
+	
+	protected boolean isBuildableCell(Cells entity) {
+		return (entity instanceof FreeCell && inRange(entity.getCoordinates()));
+	}
+	
+	
 }

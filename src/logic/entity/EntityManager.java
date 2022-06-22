@@ -4,14 +4,12 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.Set;
 
-import obsidia.entities.cells.FreeCell;
-import obsidia.entities.towers.*;
-import obsidia.entities.troops.*;
 import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
+import obsidia.entities.troops.Troops;
 
 public class EntityManager implements Manager{
 	
@@ -20,6 +18,7 @@ public class EntityManager implements Manager{
 	private final TroopsManager troop = new TroopsManager();
 	private final TowerManager tower = new TowerManager();
 	private final FarmManager farm = new FarmManager();
+	private final CoinManager coin = new CoinManager();
 	
 	private Cells oldEntity;
 
@@ -49,17 +48,17 @@ public class EntityManager implements Manager{
 	
 	@Override
 	public boolean buttonTroop() {
-		return (this.oldEntity instanceof Troops || this.oldEntity instanceof FreeCell);
+		return troop.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity), ply.getCoins());
 	}
 	
 	@Override
 	public boolean buttonTower() {
-		return (this.oldEntity instanceof Towers || this.oldEntity instanceof FreeCell);
+		return tower.isBuildableCell(oldEntity) && coin.enoughCoins(troop.newTroop(oldEntity), ply.getCoins());
 	}
 	
 	@Override
 	public boolean buttonFarm() {
-		return (this.oldEntity instanceof FreeCell && farm.inRange(oldEntity.getCoordinates()));
+		return farm.isBuildableCell(oldEntity) && coin.enoughCoins(farm.newFarm(oldEntity), ply.getCoins());
 	}
 	
 	@Override
