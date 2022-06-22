@@ -25,7 +25,7 @@ public class TurnGUI {
 
 	private Frame turnFrame = new Frame();
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
-	private EntityManager logicManager = new EntityManager();
+	private EntityManager logicManager;
 	
 	//JPanel
 	JPanel mapPanel = new JPanel();
