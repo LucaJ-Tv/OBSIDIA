@@ -71,5 +71,9 @@ public class UseMap {
 		}
 		return balance;
 	}
+	
+	public void cleanMap() {
+		MAP.clear();
+	}
 
 }
