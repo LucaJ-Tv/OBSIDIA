@@ -79,38 +79,42 @@ public class StartPanel {
         playerPanel.add(insert,gbc);
         playerPanel.add(nameInser, gbc);
         
+        //add of a new player and write the name bottom the TextField
         bAddPlayer.addActionListener(e -> {
-        	//add of a new player and write the name bottom the TextField
-        	JLabel lab = new JLabel((count++) + ". " + nameInser.getText());
-        	try {
-        		tempColor = listColor.remove(ran.nextInt(listColor.size()));
-        		this.manager.insertPlayer(nameInser.getText(), tempColor);
-        		lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-        		lab.setForeground(tempColor);	
-        	}catch(java.util.NoSuchElementException ex) {
-        		System.out.println("Not enought color");
-        		System.out.println(ex);
-        		System.exit(1);
+
+        	JLabel tempLabel;
+        	if(!nameInser.getText().isBlank()) {
+        		tempLabel = new JLabel((count++) + ". " + nameInser.getText());
+        		try {
+        			tempColor = listColor.remove(ran.nextInt(listColor.size()));
+        			this.manager.insertPlayer(nameInser.getText(), tempColor);
+        			tempLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        			tempLabel.setForeground(tempColor);	
+        		}catch(java.util.NoSuchElementException ex) {
+        			System.out.println("Not enought color");
+        			System.out.println(ex);
+        			System.exit(1);
+        		}
+        		
+        		gbc.gridwidth = GridBagConstraints.REMAINDER;
+        		playerPanel.add(tempLabel ,gbc);
+        		
+        		nameInser.setText("");
+        		
+        		//check min number of Player
+        		if(count > 2) {
+        			bStart.setEnabled(true);
+        		}
+        		
+        		//check max number of Player
+        		if( count > NMAXPLAYER) {
+        			bAddPlayer.setEnabled(false);
+        			bAddPlayer.setBackground(Color.DARK_GRAY);
+        			nameInser.setEnabled(false);
+        		}
+        		
+        		frame.validate();
         	}
-        	
-        	gbc.gridwidth = GridBagConstraints.REMAINDER;
-        	playerPanel.add(lab ,gbc);
-        	
-        	nameInser.setText("");
-        	
-        	//check min number of Player
-        	if(count > 2) {
-        		bStart.setEnabled(true);
-        	}
-        	
-        	//check max number of Player
-        	if( count > NMAXPLAYER) {
-        		bAddPlayer.setEnabled(false);
-        		bAddPlayer.setBackground(Color.DARK_GRAY);
-        		nameInser.setEnabled(false);
-        	}
-        	
-        	frame.validate();
         	
         });
         
