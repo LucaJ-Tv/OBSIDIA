@@ -13,7 +13,6 @@ public abstract class AbstractCell implements Cells {
 	public AbstractCell(final String ownerID, final Coordinates xy) {
 		this.ownerID = ownerID;
 		this.xy = xy;
-		//UseMap.addEntity(this);
 	}
 	
 	@Override
