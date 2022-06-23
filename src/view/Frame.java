@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -28,11 +29,15 @@ public class Frame extends JFrame{
 		setLocationRelativeTo(null);
 	}
 	
-	public void addPanel(JPanel panel, String position) {
-		this.add(panel,position);
+	public void setFrameLayout(LayoutManager layout) {
+		this.setLayout(layout);
 	}
 	
-	public void removePanel(JPanel panel){
-		this.remove(panel);
+	public void addPanel(JPanel panel) {
+		this.add(panel);
+	}
+	
+	public void removePanel(){
+		this.removeAll();
 	}
 }
