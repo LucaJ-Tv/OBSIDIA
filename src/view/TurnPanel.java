@@ -44,9 +44,6 @@ public class TurnPanel {
 	//TODO: get the balance from the method in CoinManager
 	private JLabel balance = new JLabel("0");
 	
-	//ActionListener of map cells
-	ActionListener actionL;
-	
 	public TurnPanel(Frame frame) {
 		new DefaultMap("Map2");
 		frame.setFrameLayout(new BorderLayout());
@@ -55,6 +52,11 @@ public class TurnPanel {
 		southPanel.setBackground(Color.DARK_GRAY);
 
 		mapPanel.setLayout(new GridLayout(map.getHeight(),map.getWidth()));
+		
+		ActionListener actionL = e -> {
+			var position = cells.get(e.getSource());
+			System.out.println(position);
+		};
 		
         for (int i=0; i<map.getHeight(); i++){
             for (int j=0; j<map.getWidth(); j++){
@@ -90,12 +92,7 @@ public class TurnPanel {
         southPanel.add(balance);
         
         frame.addComponent(mapPanel,BorderLayout.CENTER);
-        frame.addComponent(southPanel,BorderLayout.SOUTH);
-        
-        actionL = e -> {
-    		var position = cells.get(e.getSource());
-    		System.out.println(position);
-    	};
+        frame.addComponent(southPanel,BorderLayout.SOUTH);      
     	
     	frame.setVisible(true);
 	}
