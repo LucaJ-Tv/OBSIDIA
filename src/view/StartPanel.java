@@ -127,7 +127,8 @@ public class StartPanel {
         buttonsPanel.add(bExit,gbc);
         
         bStart.addActionListener(e -> {
-        	frame.removeAll();
+        	frame.setVisible(false);
+        	frame.getContentPane().removeAll();
         	new TurnGUI(frame);
         });
         
