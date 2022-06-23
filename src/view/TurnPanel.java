@@ -18,7 +18,7 @@ import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
 
-public class TurnGUI {
+public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
 	private Manager logicManager;
@@ -47,7 +47,7 @@ public class TurnGUI {
 	//ActionListener of map cells
 	ActionListener actionL;
 	
-	public TurnGUI(Frame frame) {
+	public TurnPanel(Frame frame) {
 		new DefaultMap("Map2");
 		frame.setFrameLayout(new BorderLayout());
 		frame.revalidate();

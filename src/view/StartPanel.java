@@ -129,7 +129,7 @@ public class StartPanel {
         bStart.addActionListener(e -> {
         	frame.setVisible(false);
         	frame.getContentPane().removeAll();
-        	new TurnGUI(frame);
+        	new TurnPanel(frame);
         });
         
         bSettings.addActionListener(e -> {
