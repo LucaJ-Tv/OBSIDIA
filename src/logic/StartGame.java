@@ -4,6 +4,7 @@ import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
 import view.Frame;
 import view.StartPanel;
+import view.TurnPanel;
 
 public class StartGame {
 	
@@ -19,6 +20,8 @@ public class StartGame {
 		if(cleanPlayerList) {
 			new StartPanel(frame);
 			ply.removeAllPlayer();
+		}else {
+			new TurnPanel(frame);
 		}
 		map.cleanMap();
 	}
