@@ -41,8 +41,4 @@ public class Frame extends JFrame{
 	public void addComponent(JComponent comp, GridBagConstraints position) {
 		this.add(comp,position);
 	}
-	
-	public void removePanel(){
-		this.removeAll();
-	}
 }
