@@ -48,6 +48,10 @@ public class PlayerList {
 		}
 	}
 	
+	public void removeAllPlayer() {
+			PLY.removeAll(PLY);
+	}
+	
 	public String getNameIndex(final int index) {
 		return PLY.get(index).getName();		
 	}
