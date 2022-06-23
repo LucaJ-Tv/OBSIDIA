@@ -1,10 +1,9 @@
 package logic.entity;
 
-import obsidia.entities.buildings.Farm;
 import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
-
+import obsidia.entities.buildings.Farm;
 
 public class CoinManager {
 	
@@ -23,7 +22,6 @@ public class CoinManager {
 	protected void coinTurnUpdate() {
 		ply.addCoins(map.getIdBalance(ply.getName()));
 	}
-	
 	
 	
 }
