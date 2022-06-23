@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,7 +42,7 @@ public class StartPanel {
 	JTextField nameInser = new JTextField(1);
 	
 	//panel with buttons
-	JPanel buttonsPanel = new JPanel(new GridBagLayout());
+	JPanel buttonsPanel = new JPanel(new FlowLayout());
 	JButton bStart = createButton("start");
 	JButton bSettings = createButton("settings");
 	JButton bExit = createButton("exit");
@@ -126,9 +127,9 @@ public class StartPanel {
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
-        buttonsPanel.add(bStart,gbc);
-        buttonsPanel.add(bSettings,gbc);
-        buttonsPanel.add(bExit,gbc);
+        buttonsPanel.add(bStart);
+        buttonsPanel.add(bSettings);
+        buttonsPanel.add(bExit);
         
         bStart.addActionListener(e -> {
         	frame.setVisible(false);
