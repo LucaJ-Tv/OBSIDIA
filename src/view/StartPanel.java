@@ -15,17 +15,14 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import logic.entity.EntityManager;
 import logic.entity.Manager;
 
-@SuppressWarnings("serial")
-public class StartPanel extends JPanel{
+public class StartPanel {
 	
 	private final Manager manager;
 	
-	private Frame frame = new Frame();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	private int count = 1;
@@ -34,9 +31,22 @@ public class StartPanel extends JPanel{
 	private Random ran = new Random();
 	private Color tempColor;
 	
+	//title
 	private JLabel title = new JLabel("OBSIDIA");
+	
+	//panel which adds players
+	JPanel playerPanel = new JPanel(new GridBagLayout());
+	JButton bAddPlayer = createButton("addPlayer");
+	JLabel insert = new JLabel("Inserisci nome");
+	JTextField nameInser = new JTextField(1);
+	
+	//panel with buttons
+	JPanel buttonsPanel = new JPanel(new GridBagLayout());
+	JButton bStart = createButton("start");
+	JButton bSettings = createButton("settings");
+	JButton bExit = createButton("exit");
     
-	public StartPanel() {
+	public StartPanel(Frame frame) {
 		//inizialise color for player
 		listColor.addAll(Arrays.asList(
 				new Color(200,15,15),
@@ -49,27 +59,14 @@ public class StartPanel extends JPanel{
 				));
 		this.manager = new EntityManager();
 		
-		setBorder(new EmptyBorder(5, 5, 5, 5));
-        setLayout(new GridBagLayout());
+        frame.setFrameLayout(new GridBagLayout());
         
-        //inizialise all Component
-    	//panel which adds players
-        JPanel playerPanel = new JPanel(new GridBagLayout());
-    	JButton bAddPlayer = createButton("addPlayer");
-        JLabel insert = new JLabel("Inserisci nome");
-        JTextField nameInser = new JTextField(1);
-        
-        //panel with buttons
-        JPanel buttonsPanel = new JPanel(new GridBagLayout());
-        JButton bStart = createButton("start");
-        JButton bSettings = createButton("settings");
-        JButton bExit = createButton("exit");
         
         //title
         title.setFont(new Font("Ink Free",Font.BOLD, 80));
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
-        add(title, gbc);
+        frame.addComponent(title, gbc);
         
         //playerPanel >> bAddPlayer + isert +nameInser
         insert.setHorizontalAlignment(JLabel.CENTER);
@@ -89,7 +86,7 @@ public class StartPanel extends JPanel{
         		tempColor = listColor.remove(ran.nextInt(listColor.size()));
         		this.manager.insertPlayer(nameInser.getText(), tempColor);
         		lab.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-        		lab.setForeground(tempColor);
+        		lab.setForeground(tempColor);	
         	}catch(java.util.NoSuchElementException ex) {
         		System.out.println("Not enought color");
         		System.out.println(ex);
@@ -113,13 +110,12 @@ public class StartPanel extends JPanel{
         		nameInser.setEnabled(false);
         	}
         	
-        	
-        	this.validate();
+        	frame.validate();
         	
         });
         
         gbc.weighty = 5;
-        add(playerPanel, gbc);
+        frame.addComponent(playerPanel, gbc);
         
         bStart.setEnabled(false);
 
@@ -131,8 +127,8 @@ public class StartPanel extends JPanel{
         buttonsPanel.add(bExit,gbc);
         
         bStart.addActionListener(e -> {
-        	//frame.setVisible(false);
-        	//new TurnGUI();
+        	frame.removePanel();
+        	new TurnGUI(frame);
         });
         
         bSettings.addActionListener(e -> {
@@ -149,9 +145,8 @@ public class StartPanel extends JPanel{
         });
         
         gbc.weighty = 5;
-        add(buttonsPanel, gbc);
+        frame.addComponent(buttonsPanel, gbc);
         
-        frame.add(this);
         frame.setVisible(true);
 	}
 
