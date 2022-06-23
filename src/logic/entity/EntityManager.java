@@ -92,7 +92,7 @@ public class EntityManager implements Manager{
 	
 	@Override
 	public void moveTroop(Coordinates pos) {
-		map.moveEntity(this.oldEntity, pos);
+		troop.posConquest(pos, (Troops)this.oldEntity);
 	}
 	
 	
