@@ -1,11 +1,12 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Frame extends JFrame{
 
@@ -33,8 +34,12 @@ public class Frame extends JFrame{
 		this.setLayout(layout);
 	}
 	
-	public void addPanel(JPanel panel) {
-		this.add(panel);
+	public void addComponent(JComponent comp, String position) {
+		this.add(comp,position);
+	}
+	
+	public void addComponent(JComponent comp, GridBagConstraints position) {
+		this.add(comp,position);
 	}
 	
 	public void removePanel(){
