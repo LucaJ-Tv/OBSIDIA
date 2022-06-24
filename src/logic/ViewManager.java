@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import obsidia.map.DefaultMap;
-import obsidia.map.UseMap;
+import obsidia.map.GameMap;
 import obsidia.players.PlayerList;
 import view.EndPanel;
 import view.Frame;
@@ -18,7 +18,7 @@ public class ViewManager {
 	
 	private static Frame frame = new Frame();
 	private static PlayerList ply = new PlayerList();
-	private static UseMap map = new UseMap();
+	private static GameMap map = new GameMap();
 	
 	private final List<Color> listColor = Arrays.asList(
 		new Color(200,15,15),
