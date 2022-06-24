@@ -22,10 +22,10 @@ public class ViewManager {
 	
 	private final List<Color> listColor = Arrays.asList(
 		new Color(200,15,15),
-		new Color(200,15,150),
 		new Color(50,40,235),
-		new Color(30,210,210),
 		new Color(10,200,30),
+		new Color(30,210,210),
+		new Color(200,15,150),
 		new Color(240,250,20),
 		new Color(250,150,30)
 		);
