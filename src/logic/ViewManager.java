@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import javax.swing.JOptionPane;
-
 import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
@@ -62,13 +60,14 @@ public class ViewManager {
 	}
 
 	//exit from the game
-	public void exit() {
-		if(JOptionPane.showConfirmDialog(
-    			frame,
-    			"Are you sure to exit?",
-    			"EXIT",
-    			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
+	public void exitGame() {
     		System.exit(0);
+	}
+	
+	//exit from the turn
+	public void exitTurn() {
+		//TODO:decomment when have EndGame
+    		//new EndGame();
 	}
 	
 	//return a color of listColor

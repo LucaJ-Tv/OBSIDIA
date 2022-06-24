@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -121,7 +122,12 @@ public class StartPanel {
         });
         
         bExit.addActionListener(e -> {
-        	this.viewManager.exit();
+    		if(JOptionPane.showConfirmDialog(
+        			frame,
+        			"Are you sure to exit?",
+        			"EXIT",
+        			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
+    			this.viewManager.exitGame();
         });
         
         gbc.weighty = 5;
