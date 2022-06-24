@@ -9,11 +9,12 @@ import javax.swing.JPanel;
 
 import logic.Manager;
 import logic.ViewManager;
+import logic.game.PlayerManager;
 
 public class EndPanel {
 	
 	private final Frame frame ;
-	private Manager logic;
+	private Manager logic = new PlayerManager();
 	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
@@ -32,7 +33,6 @@ public class EndPanel {
 		addWinPanel();
 		addButPanel();
 		
-		this.frame.validate();
 		this.frame.setVisible(true);
 	}
 	
