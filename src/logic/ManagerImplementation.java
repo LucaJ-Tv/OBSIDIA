@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import obsidia.map.Cells;
 import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
@@ -39,6 +41,9 @@ public abstract class ManagerImplementation implements Manager{
 		}
 	}
 	
+	
+	// PLAYERS	
+	
 	@Override
 	public void insertPlayer(String name, Color color) {
 		return ;
@@ -60,6 +65,9 @@ public abstract class ManagerImplementation implements Manager{
 		return ;
 	};
 	
+	
+	// ENTITIES
+	
 	@Override
 	public void moveTroop(Coordinates pos) {
 		return ;
@@ -73,11 +81,35 @@ public abstract class ManagerImplementation implements Manager{
 	@Override
 	public boolean button() {
 		return false;
-	};
+	}
 	
 	@Override
 	public void newEntity() {
 		return ;
-	};
+	}
+
+	
+	// MAP
+
+	@Override
+	public void defaultMapLoad(String name) {
+		return ;		
+	}
+
+	@Override
+	public String[] defaulMapGive() {
+		return null;
+	}
+	
+	@Override
+	public ImageIcon iconCell(Coordinates pos) {
+		return null;
+	}
+
+	@Override
+	public void cleanMap() {
+		return ;
+	}
+
 	
 }

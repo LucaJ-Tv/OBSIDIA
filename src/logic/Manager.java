@@ -3,14 +3,27 @@ package logic;
 import java.awt.Color;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
+
 import obsidia.utilities.Coordinates;
 
 public interface Manager {
 	
-	public void insertPlayer(String name, Color color);
-	
 	//TODO possibile aggiunta di icona
 	public boolean setClickedPosition(Coordinates pos);
+
+	// PLAYERS
+	
+	public void insertPlayer(String name, Color color);
+	
+	public void coinTurnUpdate();
+	
+	public void addPlayer(String name, Color color);
+	
+	public String winner();	
+
+	
+	//ENTITY
 	
 	public Set<Coordinates> borderActivate();
 
@@ -20,13 +33,16 @@ public interface Manager {
 	public void moveTroop(Coordinates pos);
 	
 	public void newEntity();
-	
-	public String winner();	
-	
-	//public boolean enoughCoins(Cells entity);
 
-	public void coinTurnUpdate();
+	
+	//MAP
+	
+	public void defaultMapLoad(String name);
 
-	public void addPlayer(String name, Color color);
+	public String[] defaulMapGive();
+
+	public ImageIcon iconCell(Coordinates pos);
+
+	public void cleanMap();
 	
 }
