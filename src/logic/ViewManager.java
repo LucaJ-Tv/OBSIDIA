@@ -62,7 +62,7 @@ public class ViewManager {
 
 	//exit from the game
 	public void exitGame() {
-    		System.exit(0);
+    	System.exit(0);
 	}
 	
 	//exit from the turn
