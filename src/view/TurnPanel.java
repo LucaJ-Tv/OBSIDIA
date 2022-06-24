@@ -7,59 +7,63 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import logic.Manager;
-import obsidia.map.DefaultMap;
-import obsidia.map.UseMap;
+import logic.TurnManager;
+import logic.ViewManager;
 import obsidia.utilities.Coordinates;
 
 public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
-	private Manager logicManager;
-	//TODO: next take height and width
-	UseMap map = new UseMap();
+	//private FarmManger farmManager;
+	//private TowerManager towerManager;
+	//private TroopManager troopManager;
+	private ViewManager viewManager;
+	private TurnManager turnManager;
 	
 	//JPanel
-	JPanel mapPanel = new JPanel();
-	JPanel southPanel = new JPanel(new FlowLayout());
+	private JPanel mapPanel;
+	private JPanel southPanel;
 	
 	//JButton
-	private final JButton troop = new JButton("TROOP");
-	private final JButton tower = new JButton("TOWER");
-	private final JButton farm = new JButton("FARM");
-	private final JButton skip = new JButton("SKIP PLAYER >>");
-	private final JButton exit = new JButton("EXIT");
+	private final int bDimension = 20;
+	private final JButton troop = new Button("TROOP", bDimension);
+	private final JButton tower = new Button("TOWER", bDimension);
+	private final JButton farm = new Button("FARM",bDimension);
+	private final JButton skip = new Button("SKIP PLAYER >>", bDimension);
+	private final JButton exit = new Button("END GAME", bDimension);
 	
 	//JLabel
-	private JLabel moneyLabel = new JLabel("MONEY:");
-	//TODO: get the money from the method in CoinManager
-	private JLabel money = new JLabel("10");
-	private JLabel balanceLabel = new JLabel("BALANCE:");
-	//TODO: get the balance from the method in CoinManager
-	private JLabel balance = new JLabel("0");
+	private final int lDimension = 20;
+	private final JLabel moneyLabel = new Label("MONEY:", lDimension);
+	private JLabel money;
+	private final JLabel balanceLabel = new Label("BALANCE:", lDimension);
+	private JLabel balance;
 	
 	public TurnPanel(Frame frame) {
-		new DefaultMap("Map2");
+		
+		this.turnManager = new TurnManager();
+		
 		frame.setFrameLayout(new BorderLayout());
-		frame.revalidate();
 
-		southPanel.setBackground(Color.DARK_GRAY);
-
-		mapPanel.setLayout(new GridLayout(map.getHeight(),map.getWidth()));
+		mapPanel = new JPanel(new GridLayout(turnManager.mapHeight(),turnManager.mapWidth()));
 		
 		ActionListener actionL = e -> {
-			var position = cells.get(e.getSource());
-			System.out.println(position);
+			//var position = cells.get(e.getSource());
+			
 		};
 		
-        for (int i=0; i<map.getHeight(); i++){
-            for (int j=0; j<map.getWidth(); j++){
+		//create and add button in the Map cells
+        for (int i=0; i<turnManager.mapHeight(); i++){
+            for (int j=0; j<turnManager.mapWidth(); j++){
                 final JButton jb = new JButton(" X ");
                 jb.setBackground(Color.LIGHT_GRAY);
                 jb.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -68,6 +72,14 @@ public class TurnPanel {
                 jb.addActionListener(actionL);
             }
         }
+
+		southPanel = new JPanel(new FlowLayout());
+		southPanel.setBackground(Color.DARK_GRAY);
+		
+		//TODO: get the money from the method in CoinManager
+		money = new Label("10", lDimension);
+		//TODO: get the balance from the method in CoinManager
+		balance = new Label("0", lDimension);
         
         troop.setBackground(Color.WHITE);
         tower.setBackground(Color.WHITE);
@@ -78,87 +90,60 @@ public class TurnPanel {
         money.setForeground(Color.WHITE);
         balanceLabel.setForeground(Color.WHITE);
         balance.setForeground(Color.WHITE);
-        //troop.setEnabled(false);
-        //tower.setEnabled(false);
-        //farm.setEnabled(false);
+        
+        troop.setEnabled(false);
+        tower.setEnabled(false);
+        farm.setEnabled(false);
+        
         southPanel.add(troop);
         southPanel.add(tower);
         southPanel.add(farm);
         southPanel.add(skip);
         southPanel.add(exit);
+        southPanel.add(Box.createHorizontalStrut(30));
         southPanel.add(moneyLabel);
         southPanel.add(money);
+        southPanel.add(Box.createHorizontalStrut(10));
         southPanel.add(balanceLabel);
         southPanel.add(balance);
+        
+        troop.addActionListener(e -> {
+			//this.manager.newTroop();
+		});
+        
+        tower.addActionListener(e -> {
+			//this.manager.newTower();
+		});
+        
+        farm.addActionListener(e -> {
+			//this.manager.newFarm();
+		});
+        
+        skip.addActionListener(e -> {
+        	
+        });
+        
+        exit.addActionListener(e -> {
+        	if(JOptionPane.showConfirmDialog(
+        			frame,
+        			"Quit the game ?",
+        			"ENDGAME",
+        			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+        		this.viewManager.exitTurn();
+        });
+        
         
         frame.addComponent(mapPanel,BorderLayout.CENTER);
         frame.addComponent(southPanel,BorderLayout.SOUTH);      
     	
     	frame.setVisible(true);
 	}
-		
+	
+	public void setBorder(boolean bool, Set<Coordinates> c) {
+		this.cells.forEach((b,p) -> {
+			b.setBorder( (c.contains(p) && bool == true) ? 
+					BorderFactory.createLineBorder(Color.RED, 5) :
+					BorderFactory.createLineBorder(Color.BLACK, 5));
+		});
+	}
 }
-	/*
-	@SuppressWarnings("serial")
-	public class initPanel extends JPanel{
-
-	
-	
-	
-	public void setOnTroop(Troops c) {
-		troop.setEnabled(true);
-		troop.setIcon(c.getIcon());
-		
-		troop.addActionListener(e -> {
-			logicManager.addTroop(c);
-			updateBorder();
-		});
-	}
-	
-	public void setOffTroop() {
-		troop.setEnabled(false);
-	}
-	
-	public void setOnTower(Towers c) {
-		tower.setEnabled(true);
-		tower.setIcon(c.getIcon());
-		
-		tower.addActionListener(e -> {
-			logicManager.addTower(c);
-			updateBorder();
-		});
-	}
-	
-	public void setOffTower() {
-		tower.setEnabled(false);
-	}
-	
-	public void setOnFarm(Farm c) {
-		farm.setEnabled(true);
-		farm.setIcon(c.getIcon());
-		
-		farm.addActionListener(e -> {
-			logicManager.addFarm(c);
-			updateBorder();
-		});
-	}
-	
-	public void setOffFarm() {
-		farm.setEnabled(false);
-	}
-	
-	public void setBorder(boolean b, Set<Coordinates> c) {
-		//TODO: set border if b is true nelle coordinates del set
-	}
-	
-	private void updateBorder() {
-		mapPanel.validate();
-	}
-	
-	private void updateButton() {
-		southPanel.validate();
-	}
-	
-
-
-}*/
