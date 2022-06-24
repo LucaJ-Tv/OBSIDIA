@@ -16,18 +16,35 @@ public class DefaultMap {
 	private static final int TERRAIN = Character.getNumericValue('0');
 	private static final int NULL = Character.getNumericValue('.');
 	
+	private final String dir = "data";
+
 	private UseMap map = new UseMap();
 	private PlayerList ply = new PlayerList();
+	
 	private String[] dat;
+	private Path path;	
+	
+	public DefaultMap() {
+		setMap("Map1");
+	}
 	
 	public DefaultMap(final String fileName) {
-		loadMap(fileName);
+		setMap(fileName);
+		loadMap();
 		createMap();
 	}
 	
-	private void loadMap(String fileName) {
-		
-		Path path = Path.of("data" + File.separator + fileName);
+	public String[] listMap() {
+		File file = new File(dir);
+		return file.list();
+	}
+	
+	public void setMap(String fileName) {
+		path = Path.of(dir + File.separator + fileName);
+	}
+	
+	public void loadMap() {
+
 		try {
 			dat = Files.readString(path).split("\n");
 		} catch (IOException e) {
@@ -42,7 +59,7 @@ public class DefaultMap {
 		
 	}
 	
-	private void createMap() {		
+	public void createMap() {		
 		
 		for(int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j< map.getWidth(); j++) {
