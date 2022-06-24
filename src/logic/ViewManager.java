@@ -15,7 +15,7 @@ import view.Frame;
 import view.StartPanel;
 import view.TurnPanel;
 
-public class StartGame {
+public class ViewManager {
 	
 	private static Frame frame = new Frame();
 	private static PlayerList ply = new PlayerList();
@@ -32,7 +32,7 @@ public class StartGame {
 		);
 	
 	public static void main(String[] args) {
-		new StartGame().inizGame(true);
+		new ViewManager().inizGame(true);
 	}
 	
 	public void inizGame(boolean cleanPlayerList) {
