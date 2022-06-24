@@ -51,7 +51,7 @@ public class EndPanel {
 		JPanel winPanel = new JPanel();
 		Label winLabel;
 
-		winLabel = new Label(logic.winner(), 60);
+		winLabel = new Label(logic.namePlayer(), 60);
 		winPanel.add(winLabel);
 		
 		winLabel = new Label(" WIN!", 60);
