@@ -72,7 +72,7 @@ public class TurnPanel {
                 //TODO: non mostra i castelli
                 jb.setIcon(new ImageIcon(
                 		this.mapManager.iconCell(new Coordinates(i,j))
-                		.getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT)));
+                		.getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT)));
                 jb.setBackground(Color.LIGHT_GRAY);
                 jb.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 cells.put(jb, new Coordinates(i,j));
