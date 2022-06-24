@@ -25,6 +25,14 @@ public class PlayerManager extends ManagerImplementation{
 	@Override
 	public void addPlayer(String name, Color color) {
 		ply.addPlayer(new Player(name , color));
-	};
+	}
+	
+	public void nextPlayer() {
+		ply.nextPlayer();
+	}
+	
+	public boolean hasWinner() {
+		return ply.numberPlayer() == 1;
+	}
 
 }
