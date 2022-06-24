@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import logic.TurnManager;
 import logic.ViewManager;
@@ -55,6 +57,7 @@ public class TurnPanel {
 		frame.setFrameLayout(new BorderLayout());
 
 		mapPanel = new JPanel(new GridLayout(turnManager.mapHeight(),turnManager.mapWidth()));
+		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
 			//var position = cells.get(e.getSource());
@@ -81,11 +84,12 @@ public class TurnPanel {
 		//TODO: get the balance from the method in CoinManager
 		balance = new Label("0", lDimension);
         
-        troop.setBackground(Color.WHITE);
-        tower.setBackground(Color.WHITE);
-        farm.setBackground(Color.WHITE);
-        skip.setBackground(Color.WHITE);
-        exit.setBackground(Color.WHITE);
+		Border border = BorderFactory.createLineBorder(Color.WHITE);
+        troop.setBorder(border);
+        tower.setBorder(border);
+        farm.setBorder(border);
+        skip.setBorder(border);
+        exit.setBorder(border);
         moneyLabel.setForeground(Color.WHITE);
         money.setForeground(Color.WHITE);
         balanceLabel.setForeground(Color.WHITE);
@@ -129,7 +133,7 @@ public class TurnPanel {
         			"Quit the game ?",
         			"ENDGAME",
         			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        		this.viewManager.exitTurn();
+        		this.viewManager.moveEnd();
         });
         
         
