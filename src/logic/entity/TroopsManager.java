@@ -102,6 +102,7 @@ public class TroopsManager extends ManagerImplementation{
 	public void moveTroop(Coordinates pos) {
 		if(ManagerImplementation.map.getEntity(pos) instanceof Castle) {
 			ManagerImplementation.map.removePlayer(map.getOwner(pos));
+			ManagerImplementation.ply.removePlayer(map.getOwner(pos));
 		}
 		posConquest(pos, (Troops)super.oldEntity);
 	}
