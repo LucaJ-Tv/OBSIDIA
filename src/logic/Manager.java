@@ -44,5 +44,9 @@ public interface Manager {
 	public ImageIcon iconCell(Coordinates pos);
 
 	public void cleanMap();
+
+	public int mapHeight();
+
+	public int mapWidth();
 	
 }

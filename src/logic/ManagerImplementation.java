@@ -87,7 +87,6 @@ public abstract class ManagerImplementation implements Manager{
 	public void newEntity() {
 		return ;
 	}
-
 	
 	// MAP
 
@@ -109,6 +108,16 @@ public abstract class ManagerImplementation implements Manager{
 	@Override
 	public void cleanMap() {
 		return ;
+	}
+
+	@Override
+	public int mapWidth() {
+		return 0;
+	}
+
+	@Override 
+	public int mapHeight() {
+		return 0;
 	}
 
 	

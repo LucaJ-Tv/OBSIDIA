@@ -26,8 +26,7 @@ public class MapManager extends ManagerImplementation{
 	public void cleanMap() {
 		ManagerImplementation.map
 		.cleanMap();
-	}
-	
+	}	
 	
 	@Override
 	public ImageIcon iconCell(Coordinates pos) {
@@ -35,5 +34,16 @@ public class MapManager extends ManagerImplementation{
 				.getEntity(pos)
 				.getIcon();
 	}
+	
+	@Override
+	public int mapWidth() {
+		return ManagerImplementation.map.getWidth();
+	}
+	
+	@Override
+	public int mapHeight() {
+		return ManagerImplementation.map.getHeight();
+	}
+	
 }
 
