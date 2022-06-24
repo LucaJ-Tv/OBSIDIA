@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logic.ViewManager;
-import logic.entity.EntityManager;
-import logic.entity.Manager;
+import logic.game.PlayerManager;
+import logic.Manager;
 
 public class StartPanel {
 	
@@ -46,7 +46,7 @@ public class StartPanel {
     
 	public StartPanel(Frame frame) {
 
-		this.manager = new EntityManager();
+		this.manager = new PlayerManager();
 		
         frame.setFrameLayout(new GridBagLayout());
         

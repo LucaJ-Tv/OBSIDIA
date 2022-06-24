@@ -8,12 +8,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import logic.Manager;
-import logic.StartGame;
+import logic.ViewManager;
 
 public class EndPanel {
 	
 	private final Frame frame ;
 	private Manager logic;
+	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	public EndPanel(Frame frame) {
@@ -90,13 +91,13 @@ public class EndPanel {
 	
 	private void playAgainPerformer(Button plyAgain) {
 		plyAgain.addActionListener(e -> {
-			new StartGame(false);
+			this.viewManager.inizGame(false);
 		});
 	}
 	
 	private void newGamePerformer(Button newGame) {
 		newGame.addActionListener(e ->{
-			new StartGame(true);
+			this.viewManager.inizGame(true);
 		});
 	}
 	
@@ -107,7 +108,7 @@ public class EndPanel {
         			"Are you sure to exit?",
         			"EXIT",
         			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
-        		System.exit(0);
+        		this.viewManager.exitGame();
 		});
 	}
 	
