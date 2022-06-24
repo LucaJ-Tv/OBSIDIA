@@ -1,10 +1,10 @@
 package logic;
 
-import obsidia.map.UseMap;
+import obsidia.map.GameMap;
 
 public class TurnManager {
 	
-	UseMap map = new UseMap();
+	GameMap map = new GameMap();
 	
 	public int mapWidth() {
 		return map.getWidth();

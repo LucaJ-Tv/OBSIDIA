@@ -4,14 +4,14 @@ import java.awt.Color;
 
 import obsidia.entities.buildings.Farm;
 import obsidia.map.DefaultMap;
-import obsidia.map.UseMap;
+import obsidia.map.GameMap;
 import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
 public class TurnGame implements Turn{
 	
-	private  UseMap map = new UseMap();
+	private  GameMap map = new GameMap();
 	private  PlayerList player = new PlayerList();
 	private Coordinates coordinates;
 	

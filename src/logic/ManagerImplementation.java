@@ -7,13 +7,13 @@ import java.util.Set;
 import javax.swing.ImageIcon;
 
 import obsidia.map.Cells;
-import obsidia.map.UseMap;
+import obsidia.map.GameMap;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
 public abstract class ManagerImplementation implements Manager{
 	
-	protected static final UseMap map = new UseMap();
+	protected static final GameMap map = new GameMap();
 	protected static final PlayerList ply = new PlayerList();;
 	protected Cells oldEntity;
 	

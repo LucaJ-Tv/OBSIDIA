@@ -18,7 +18,7 @@ public class DefaultMap {
 	
 	private final String dir = "data";
 
-	private UseMap map = new UseMap();
+	private GameMap map = new GameMap();
 	private PlayerList ply = new PlayerList();
 	
 	private String[] dat;
