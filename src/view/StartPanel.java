@@ -6,30 +6,26 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import logic.ViewManager;
 import logic.entity.EntityManager;
 import logic.entity.Manager;
 
 public class StartPanel {
 	
-	private final Manager manager;
+	//TODO: settings can be change in choose map
 	
+	private final Manager manager;
+	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
-	private int count = 1;
+	private int count = 0;
 	private final int NMAXPLAYER = 5;
-	private List<Color> listColor = new ArrayList<>();
-	private Random ran = new Random();
 	private Color tempColor;
 	
 	//title
@@ -48,20 +44,10 @@ public class StartPanel {
 	JButton bExit = createButton("exit");
     
 	public StartPanel(Frame frame) {
-		//inizialise color for player
-		listColor.addAll(Arrays.asList(
-				new Color(200,15,15),
-				new Color(200,15,150),
-				new Color(50,40,235),
-				new Color(30,210,210),
-				new Color(10,200,30),
-				new Color(240,250,20),
-				new Color(250,150,30)
-				));
+
 		this.manager = new EntityManager();
 		
         frame.setFrameLayout(new GridBagLayout());
-        
         
         //title
         title.setFont(new Font("Ink Free",Font.BOLD, 80));
@@ -85,17 +71,12 @@ public class StartPanel {
 
         	JLabel tempLabel;
         	if(!nameInser.getText().isBlank()) {
-        		tempLabel = new JLabel((count++) + ". " + nameInser.getText());
-        		try {
-        			tempColor = listColor.remove(ran.nextInt(listColor.size()));
-        			this.manager.insertPlayer(nameInser.getText(), tempColor);
-        			tempLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
-        			tempLabel.setForeground(tempColor);	
-        		}catch(java.util.NoSuchElementException ex) {
-        			System.out.println("Not enought color");
-        			System.out.println(ex);
-        			System.exit(1);
-        		}
+        		tempColor = this.viewManager.getColor(count);
+        		count++;
+        		tempLabel = new JLabel((count) + ". " + nameInser.getText());
+        		this.manager.insertPlayer(nameInser.getText(), tempColor);
+        		tempLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
+        		tempLabel.setForeground(tempColor);
         		
         		gbc.gridwidth = GridBagConstraints.REMAINDER;
         		playerPanel.add(tempLabel ,gbc);
@@ -103,12 +84,12 @@ public class StartPanel {
         		nameInser.setText("");
         		
         		//check min number of Player
-        		if(count > 2) {
+        		if(count >= 2) {
         			bStart.setEnabled(true);
         		}
         		
         		//check max number of Player
-        		if( count > NMAXPLAYER) {
+        		if( count >= NMAXPLAYER) {
         			bAddPlayer.setEnabled(false);
         			bAddPlayer.setBackground(Color.DARK_GRAY);
         			nameInser.setEnabled(false);
@@ -132,9 +113,7 @@ public class StartPanel {
         buttonsPanel.add(bExit);
         
         bStart.addActionListener(e -> {
-        	frame.setVisible(false);
-        	frame.getContentPane().removeAll();
-        	new TurnPanel(frame);
+        	this.viewManager.moveTurn("Map2");
         });
         
         bSettings.addActionListener(e -> {
@@ -142,12 +121,7 @@ public class StartPanel {
         });
         
         bExit.addActionListener(e -> {
-        	if(JOptionPane.showConfirmDialog(
-        			frame,
-        			"Are you sure to exit?",
-        			"EXIT",
-        			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) 
-        		System.exit(0);
+        	this.viewManager.exit();
         });
         
         gbc.weighty = 5;
