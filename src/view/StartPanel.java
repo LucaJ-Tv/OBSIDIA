@@ -30,19 +30,20 @@ public class StartPanel {
 	private Color tempColor;
 	
 	//title
-	private JLabel title = new JLabel("OBSIDIA");
+	private JLabel title = new Label("OBSIDIA", 80);
+	private final int bDimension = 40;
 	
 	//panel which adds players
 	JPanel playerPanel = new JPanel(new GridBagLayout());
-	JButton bAddPlayer = createButton("addPlayer");
-	JLabel insert = new JLabel("Inserisci nome");
+	JButton bAddPlayer = new Button("addPlayer", bDimension);
+	JLabel insert = new Label("Inserisci nome", 20);
 	JTextField nameInser = new JTextField(1);
 	
 	//panel with buttons
 	JPanel buttonsPanel = new JPanel(new FlowLayout());
-	JButton bStart = createButton("start");
-	JButton bSettings = createButton("settings");
-	JButton bExit = createButton("exit");
+	JButton bStart = new Button("start", bDimension);
+	JButton bSettings = new Button("settings", bDimension);
+	JButton bExit = new Button("exit", bDimension);
     
 	public StartPanel(Frame frame) {
 
@@ -51,14 +52,12 @@ public class StartPanel {
         frame.setFrameLayout(new GridBagLayout());
         
         //title
-        title.setFont(new Font("Ink Free",Font.BOLD, 80));
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTH;
         frame.addComponent(title, gbc);
         
         //playerPanel >> bAddPlayer + isert +nameInser
         insert.setHorizontalAlignment(JLabel.CENTER);
-        insert.setFont(new Font(Font.SERIF, Font.PLAIN,  20));
         nameInser.setPreferredSize(new Dimension(10,20));
         
         gbc.anchor = GridBagConstraints.CENTER;
@@ -134,16 +133,6 @@ public class StartPanel {
         frame.addComponent(buttonsPanel, gbc);
         
         frame.setVisible(true);
-	}
-
-	//create a generic button
-	private JButton createButton(String name) {
-		JButton b = new JButton(name);
-		b.setOpaque(true);
-		b.setBackground(Color.BLACK);
-		b.setForeground(Color.WHITE);
-		b.setFont(new Font("Ink Free",Font.BOLD, 40));
-		return b;
 	}
 	
 }
