@@ -28,8 +28,8 @@ public class TurnPanel {
 	//private FarmManger farmManager;
 	//private TowerManager towerManager;
 	//private TroopManager troopManager;
-	private ViewManager viewManager;
-	private TurnManager turnManager;
+	private ViewManager viewManager = new ViewManager();
+	private TurnManager turnManager = new TurnManager();
 	
 	//JPanel
 	private JPanel mapPanel;
@@ -51,8 +51,6 @@ public class TurnPanel {
 	private JLabel balance;
 	
 	public TurnPanel(Frame frame) {
-		
-		this.turnManager = new TurnManager();
 		
 		frame.setFrameLayout(new BorderLayout());
 
