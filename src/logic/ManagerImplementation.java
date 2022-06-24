@@ -54,6 +54,11 @@ public abstract class ManagerImplementation implements Manager{
 	}
 	
 	@Override
+	public Color colorPlayer() {
+		return Color.WHITE;
+	}
+	
+	@Override
 	public void coinTurnUpdate() {
 	}
 	

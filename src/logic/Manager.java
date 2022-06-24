@@ -20,7 +20,9 @@ public interface Manager {
 	
 	public void addPlayer(String name, Color color);
 	
-	public String namePlayer();	
+	public String namePlayer();
+	
+	public Color colorPlayer();
 
 	
 	//ENTITY

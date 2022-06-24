@@ -18,6 +18,11 @@ public class PlayerManager extends ManagerImplementation{
 	}
 	
 	@Override
+	public Color colorPlayer() {
+		return ply.getColor();
+	}
+	
+	@Override
 	public void coinTurnUpdate() {
 		ply.addCoins(map.getIdBalance(ply.getName()));
 	}
