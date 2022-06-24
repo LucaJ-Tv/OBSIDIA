@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -21,22 +23,26 @@ import javax.swing.border.EmptyBorder;
 
 import logic.TurnManager;
 import logic.ViewManager;
-import logic.game.PlayerManager;
+import logic.entity.*;
+import logic.game.*;
 import obsidia.utilities.Coordinates;
 
 public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
 	private Frame frame;
-	//private FarmManger farmManager;
-	//private TowerManager towerManager;
-	//private TroopManager troopManager;
+	private FarmManager farmManager = new FarmManager();
+	private TowerManager towerManager = new TowerManager();
+	//TODO: is Troops or Troop
+	private TroopsManager troopManager = new TroopsManager();
 	private ViewManager viewManager = new ViewManager();
 	private TurnManager turnManager = new TurnManager();
 	private PlayerManager playerManager = new PlayerManager();
-	JLabel namePlayer = new Label("", 30);
+	private MapManager mapManager = new MapManager();
+	JLabel namePlayer = new Label("", 35);
 	private final int bDimension = 20;
 	private final int lDimension = 20;
+	Coordinates position;
 	
 	public TurnPanel(Frame frame) {
 		
@@ -55,14 +61,18 @@ public class TurnPanel {
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
-			//var position = cells.get(e.getSource());
+			position = cells.get(e.getSource());
 			
 		};
 		
 		//create and add button in the Map cells
         for (int i=0; i<turnManager.mapHeight(); i++){
             for (int j=0; j<turnManager.mapWidth(); j++){
-                final JButton jb = new JButton(" X ");
+                final JButton jb = new JButton();
+                //TODO: non mostra i castelli
+                jb.setIcon(new ImageIcon(
+                		this.mapManager.iconCell(new Coordinates(i,j))
+                		.getImage().getScaledInstance(90, 90, Image.SCALE_DEFAULT)));
                 jb.setBackground(Color.LIGHT_GRAY);
                 jb.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
                 cells.put(jb, new Coordinates(i,j));
@@ -114,7 +124,7 @@ public class TurnPanel {
         farm.setEnabled(false);
         
         southPanel.add(namePlayer);
-        southPanel.add(Box.createHorizontalStrut(30));
+        southPanel.add(Box.createHorizontalStrut(50));
         southPanel.add(troop);
         southPanel.add(tower);
         southPanel.add(farm);
@@ -128,15 +138,16 @@ public class TurnPanel {
         southPanel.add(balance);
         
         troop.addActionListener(e -> {
-			//this.manager.newTroop();
+			//this.troopManager.newTroop();
 		});
         
         tower.addActionListener(e -> {
-			//this.manager.newTower();
+			//this.towerManager.newTower();
 		});
         
         farm.addActionListener(e -> {
-			//this.manager.newFarm();
+			//this.farmManager.newFarm();
+        	
 		});
         
         skip.addActionListener(e -> {
