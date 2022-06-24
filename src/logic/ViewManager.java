@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.players.PlayerList;
+import view.EndPanel;
 import view.Frame;
 import view.StartPanel;
 import view.TurnPanel;
@@ -65,9 +66,9 @@ public class ViewManager {
 	}
 	
 	//exit from the turn
-	public void exitTurn() {
-		//TODO:decomment when have EndGame
-    		//new EndGame();
+	public void moveEnd() {
+		clearFrame();
+		new EndPanel(frame);
 	}
 	
 	//return a color of listColor
