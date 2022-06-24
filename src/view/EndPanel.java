@@ -24,8 +24,6 @@ public class EndPanel {
 	
 	private void setFrame() {
 		
-		this.frame.setVisible(false);
-		this.frame.getContentPane().removeAll();
 		this.frame.setFrameLayout(new GridBagLayout());
 		
 		gbc.weighty = 1;
