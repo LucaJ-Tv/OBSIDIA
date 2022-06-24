@@ -72,15 +72,15 @@ public class EndPanel {
 		JPanel butPanel = new JPanel();
 	    Button but;
 	     
-	    but = new Button("Play Again");
+	    but = new Button("Play Again", 40);
 		butPanel.add(but);
 		playAgainPerformer(but);
 		
-		but = new Button("New Game");
+		but = new Button("New Game", 40);
 		butPanel.add(but);
 		newGamePerformer(but);
 		
-		but = new Button("Exit");
+		but = new Button("Exit", 40);
 		butPanel.add(but);
 		exitPerformer(but);
 		
