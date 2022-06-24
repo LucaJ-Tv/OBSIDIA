@@ -61,6 +61,7 @@ public class StartGame {
 		new TurnPanel(frame);
 	}
 
+	//exit from the game
 	public void exit() {
 		if(JOptionPane.showConfirmDialog(
     			frame,
@@ -70,7 +71,7 @@ public class StartGame {
     		System.exit(0);
 	}
 	
-	
+	//return a color of listColor
 	public Color getColor(int pos) throws NoSuchElementException{
 		return listColor.get(pos);
 	}
