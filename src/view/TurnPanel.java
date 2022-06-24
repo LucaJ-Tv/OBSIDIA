@@ -13,7 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import logic.entity.Manager;
+import logic.Manager;
 import obsidia.map.DefaultMap;
 import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
