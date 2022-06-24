@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import logic.ManagerImplementation;
+import obsidia.entities.buildings.Castle;
 import obsidia.entities.cells.FreeCell;
 import obsidia.entities.troops.TroopFour;
 import obsidia.entities.troops.TroopOne;
@@ -99,6 +100,9 @@ public class TroopsManager extends ManagerImplementation{
 	
 	@Override
 	public void moveTroop(Coordinates pos) {
+		if(ManagerImplementation.map.getEntity(pos) instanceof Castle) {
+			ManagerImplementation.map.removePlayer(map.getOwner(pos));
+		}
 		posConquest(pos, (Troops)super.oldEntity);
 	}
 }
