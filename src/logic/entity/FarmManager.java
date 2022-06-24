@@ -1,15 +1,16 @@
 package logic.entity;
 
+import java.util.Collections;
+import java.util.Set;
+
+import logic.ManagerImplementation;
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.buildings.Farm;
 import obsidia.entities.cells.FreeCell;
 import obsidia.map.Cells;
-import obsidia.map.UseMap;
 import obsidia.utilities.Coordinates;
 
-public class FarmManager {
-	
-	private final UseMap map = new UseMap();
+public class FarmManager extends ManagerImplementation{
 	
 	private boolean isBuildable(Coordinates i) {
 		return (map.getEntity(i) instanceof Castle || map.getEntity(i) instanceof Farm);
@@ -30,17 +31,38 @@ public class FarmManager {
 		return false;
 	}
 
-	protected Farm newFarm(Cells oldEntity) {
+	private Farm newFarm(Cells oldEntity) {
 		return new Farm(oldEntity.getOwner(), oldEntity.getCoordinates());		
 	}
 	
-	protected boolean isBuildableCell(Cells entity) {
+	private boolean isBuildableCell(Cells entity) {
 		return (entity instanceof FreeCell && inRange(entity.getCoordinates()));
 	}
 	
-	protected int getCost(String player) {
+	private int getCost(String player) {
 		return map.numberFarm(player)*5 + Farm.COST;
 	}
 	
+	@Override
+	protected boolean enoughCoins(Cells entity) {
+		return ManagerImplementation.ply.getCoins() >= this.getCost(ManagerImplementation.ply.getName());
+	}
+	
+	@Override
+	public boolean button() {
+		return isBuildableCell(super.oldEntity) && this.enoughCoins(newFarm(oldEntity));
+	}
+	
+	@Override
+	public void newEntity() {
+		Cells fr = newFarm(super.oldEntity);
+		ManagerImplementation.map.addEntity(fr);
+		ManagerImplementation.ply.addCoins(-fr.getCost());
+	}
+
+	@Override
+	public Set<Coordinates> borderActivate() {
+		return Collections.emptySet();
+	}
 	
 }
