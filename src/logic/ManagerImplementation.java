@@ -46,23 +46,24 @@ public abstract class ManagerImplementation implements Manager{
 	
 	@Override
 	public void insertPlayer(String name, Color color) {
-		return ;
 	}
-	
 
 	@Override
-	public String winner() {
+	public String namePlayer() {
 		return "Luca";//null; TODO
 	}
 	
 	@Override
+	public Color colorPlayer() {
+		return Color.WHITE;
+	}
+	
+	@Override
 	public void coinTurnUpdate() {
-		return ;
 	}
 	
 	@Override
 	public void addPlayer(String name, Color color) {
-		return ;
 	};
 	
 	
@@ -70,7 +71,6 @@ public abstract class ManagerImplementation implements Manager{
 	
 	@Override
 	public void moveTroop(Coordinates pos) {
-		return ;
 	}
 	
 	@Override
@@ -85,14 +85,12 @@ public abstract class ManagerImplementation implements Manager{
 	
 	@Override
 	public void newEntity() {
-		return ;
 	}
 	
 	// MAP
 
 	@Override
-	public void defaultMapLoad(String name) {
-		return ;		
+	public void defaultMapLoad(String name) {		
 	}
 
 	@Override
@@ -107,7 +105,6 @@ public abstract class ManagerImplementation implements Manager{
 
 	@Override
 	public void cleanMap() {
-		return ;
 	}
 
 	@Override

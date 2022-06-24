@@ -13,8 +13,13 @@ public class PlayerManager extends ManagerImplementation{
 	}
 	
 	@Override
-	public String winner() {
+	public String namePlayer() {
 		return ply.getName();
+	}
+	
+	@Override
+	public Color colorPlayer() {
+		return ply.getColor();
 	}
 	
 	@Override
