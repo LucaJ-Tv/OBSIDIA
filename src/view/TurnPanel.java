@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,36 +26,29 @@ import obsidia.utilities.Coordinates;
 public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
+	private Frame frame;
 	//private FarmManger farmManager;
 	//private TowerManager towerManager;
 	//private TroopManager troopManager;
 	private ViewManager viewManager = new ViewManager();
 	private TurnManager turnManager = new TurnManager();
-	
-	//JPanel
-	private JPanel mapPanel;
-	private JPanel southPanel;
-	
-	//JButton
 	private final int bDimension = 20;
-	private final JButton troop = new Button("TROOP", bDimension);
-	private final JButton tower = new Button("TOWER", bDimension);
-	private final JButton farm = new Button("FARM",bDimension);
-	private final JButton skip = new Button("SKIP PLAYER >>", bDimension);
-	private final JButton exit = new Button("END GAME", bDimension);
-	
-	//JLabel
 	private final int lDimension = 20;
-	private final JLabel moneyLabel = new Label("MONEY:", lDimension);
-	private JLabel money;
-	private final JLabel balanceLabel = new Label("BALANCE:", lDimension);
-	private JLabel balance;
 	
 	public TurnPanel(Frame frame) {
 		
 		frame.setFrameLayout(new BorderLayout());
-
-		mapPanel = new JPanel(new GridLayout(turnManager.mapHeight(),turnManager.mapWidth()));
+		this.frame = frame;
+        
+        frame.addComponent(addMapPanel(),BorderLayout.CENTER);
+        frame.addComponent(addSouthPanel(),BorderLayout.SOUTH);      
+    	
+    	frame.setVisible(true);
+	}
+	
+	private JComponent addMapPanel() {
+		
+		JPanel mapPanel = new JPanel(new GridLayout(turnManager.mapHeight(),turnManager.mapWidth()));
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
@@ -73,9 +67,27 @@ public class TurnPanel {
                 jb.addActionListener(actionL);
             }
         }
-
-		southPanel = new JPanel(new FlowLayout());
+		
+		return mapPanel;
+	}
+	
+	private JComponent addSouthPanel() {
+		
+		JPanel southPanel = new JPanel(new FlowLayout());
 		southPanel.setBackground(Color.DARK_GRAY);
+		
+		//JButton
+		JButton troop = new Button("TROOP", bDimension);
+		JButton tower = new Button("TOWER", bDimension);
+		JButton farm = new Button("FARM",bDimension);
+		JButton skip = new Button("SKIP PLAYER >>", bDimension);
+		JButton exit = new Button("END GAME", bDimension);
+		
+		//JLabel
+		final JLabel moneyLabel = new Label("MONEY:", lDimension);
+		JLabel money;
+		final JLabel balanceLabel = new Label("BALANCE:", lDimension);
+		JLabel balance;
 		
 		//TODO: get the money from the method in CoinManager
 		money = new Label("10", lDimension);
@@ -133,12 +145,8 @@ public class TurnPanel {
         			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
         		this.viewManager.moveEnd();
         });
-        
-        
-        frame.addComponent(mapPanel,BorderLayout.CENTER);
-        frame.addComponent(southPanel,BorderLayout.SOUTH);      
-    	
-    	frame.setVisible(true);
+		
+		return southPanel;
 	}
 	
 	public void setBorder(boolean bool, Set<Coordinates> c) {

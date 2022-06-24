@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,43 +21,49 @@ import logic.Manager;
 public class StartPanel {
 	
 	//TODO: settings can be change in choose map
-	
+	private Frame frame;
 	private final Manager manager;
 	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
-	
+
 	private int count = 0;
 	private final int NMAXPLAYER = 5;
-	private Color tempColor;
 	
-	//title
-	private JLabel title = new Label("OBSIDIA", 80);
 	private final int bDimension = 40;
-	
-	//panel which adds players
-	JPanel playerPanel = new JPanel(new GridBagLayout());
-	JButton bAddPlayer = new Button("addPlayer", bDimension);
-	JLabel insert = new Label("Inserisci nome", 20);
-	JTextField nameInser = new JTextField(1);
-	
-	//panel with buttons
-	JPanel buttonsPanel = new JPanel(new FlowLayout());
-	JButton bStart = new Button("start", bDimension);
-	JButton bSettings = new Button("settings", bDimension);
-	JButton bExit = new Button("exit", bDimension);
+	JButton bStart;
     
 	public StartPanel(Frame frame) {
-
+		
+		this.frame = frame;
 		this.manager = new PlayerManager();
 		
         frame.setFrameLayout(new GridBagLayout());
         
-        //title
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
-        frame.addComponent(title, gbc);
+        frame.addComponent(addTitle(), gbc);
         
-        //playerPanel >> bAddPlayer + isert +nameInser
+        frame.addComponent(addplayerPanel(), gbc);
+        
+        frame.addComponent(addButtonsPanel(), gbc);
+        
+        frame.setVisible(true);
+	}
+	
+	private JComponent addTitle() {
+		
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        return new Label("OBSIDIA", 80);
+	}
+	
+	private JComponent addplayerPanel() {
+		
+		//panel which adds players
+		JPanel playerPanel = new JPanel(new GridBagLayout());
+		JButton bAddPlayer = new Button("addPlayer", bDimension);
+		JLabel insert = new Label("Inserisci nome", 20);
+		JTextField nameInser = new JTextField(1);
+		
+		//playerPanel >> bAddPlayer + isert + nameInser
         insert.setHorizontalAlignment(JLabel.CENTER);
         nameInser.setPreferredSize(new Dimension(10,20));
         
@@ -70,7 +77,9 @@ public class StartPanel {
         bAddPlayer.addActionListener(e -> {
 
         	JLabel tempLabel;
+        	Color tempColor;
         	if(!nameInser.getText().isBlank()) {
+        		
         		tempColor = this.viewManager.getColor(count);
         		count++;
         		tempLabel = new JLabel((count) + ". " + nameInser.getText());
@@ -95,16 +104,24 @@ public class StartPanel {
         			nameInser.setEnabled(false);
         		}
         		
-        		frame.validate();
         	}
         	
+        	frame.validate();
         });
         
         gbc.weighty = 5;
-        frame.addComponent(playerPanel, gbc);
-        
-        bStart.setEnabled(false);
-
+		return playerPanel;
+	}
+	
+	private JComponent addButtonsPanel() {
+		
+		//panel with buttons
+		JPanel buttonsPanel = new JPanel(new FlowLayout());
+		bStart = new Button("start", bDimension);
+		JButton bSettings = new Button("settings", bDimension);
+		JButton bExit = new Button("exit", bDimension);
+		
+		bStart.setEnabled(false);
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 2;
@@ -130,9 +147,7 @@ public class StartPanel {
         });
         
         gbc.weighty = 5;
-        frame.addComponent(buttonsPanel, gbc);
-        
-        frame.setVisible(true);
+        return buttonsPanel;
 	}
 	
 }
