@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import obsidia.entities.buildings.Farm;
+import obsidia.entities.cells.FreeCell;
 import obsidia.utilities.Coordinates;
 
 public class UseMap {
@@ -50,6 +51,14 @@ public class UseMap {
 	
 	public int getBalance(final Coordinates xy) {
 		return UseMap.MAP.get(xy.getKey()).getBalance();
+	}
+	
+	public void removePlayer(final String ID) {
+		for (var i : UseMap.MAP.values()) {
+			if(i.getOwner() == ID) {
+				UseMap.MAP.replace(i.getCoordinates().getKey(), new FreeCell("", i.getCoordinates()));
+			}
+		}
 	}
 	
 	public int numberFarm(final String ID) {
