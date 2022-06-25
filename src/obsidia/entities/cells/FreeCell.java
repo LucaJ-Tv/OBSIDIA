@@ -5,6 +5,23 @@ import javax.swing.ImageIcon;
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
+/**
+ * 
+ * The class determines a clean Cell in the map.
+ * 
+ * In the game FreeCell can represent 3 different entities based on the owner:
+ * ownerID == null : the cell not exist in that posizion of the map
+ * ownerID == "" (empty string) : the cell it's a free terrain and can be conquest
+ * ownerID == player : the cell it's a player's terrain
+ * 
+ * It extends the AbstractCells class and thus 
+ * implements the Cells Interface and its methods 
+ * not implemented by the abstract class.
+ * @see Cells.java
+ * 
+ * @author Tellarini Pietro
+ *
+ */
 public class FreeCell extends AbstractCell{
 
 	private static final int DEFAUL_BALANCE = 1;
