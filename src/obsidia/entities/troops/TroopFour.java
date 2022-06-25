@@ -7,6 +7,18 @@ import javax.swing.ImageIcon;
 import obsidia.map.AbstractCell;
 import obsidia.utilities.Coordinates;
 
+/**
+ * 
+ * The class determines a level 4 troop.
+ * It extends the AbstractCells class and thus 
+ * implements the Cells Interface and its methods 
+ * not implemented by the abstract class.
+ * @see Cells.java
+ * @see Troops.java
+ * 
+ * @author Tellarini Pietro
+ *
+ */
 public class TroopFour extends AbstractCell implements Troops{
 
 	public static final int COST = 15;
