@@ -4,6 +4,14 @@ import java.nio.file.Path;
 
 import obsidia.utilities.Coordinates;
 
+/**
+ * The abstract class provides the implementation of the same methods 
+ * for all the Cells of the map and keeps the relative fields of the 
+ * owner and of the position
+ * 
+ * @author Tellarini Pietro
+ *
+ */
 public abstract class AbstractCell implements Cells {
 
 	private Coordinates xy;
