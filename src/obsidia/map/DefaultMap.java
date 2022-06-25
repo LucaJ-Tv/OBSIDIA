@@ -10,6 +10,14 @@ import obsidia.entities.cells.FreeCell;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
+/**
+ * 
+ * This class provides the methods for reading and 
+ * loading predefined game maps, saved on a text file.
+ * 
+ * @author Tellarini Pietro
+ * 
+ */
 public class DefaultMap {
 	
 	private static final int CASTLE = Character.getNumericValue('A');
@@ -22,27 +30,36 @@ public class DefaultMap {
 	private PlayerList ply = new PlayerList();
 	
 	private String[] dat;
-	private Path path;	
+	private Path path;
 	
 	public DefaultMap() {
-		setMap("Map1");
+		this("Map1");
 	}
 	
 	public DefaultMap(final String fileName) {
 		setMap(fileName);
-		loadMap();
-		createMap();
 	}
 	
+	/**
+	 * @return All map file name in folder dir (variable)
+	 */
 	public String[] listMap() {
 		File file = new File(dir);
 		return file.list();
 	}
 	
+	/**
+	 * Set the path based on the map file name
+	 * @param fileName
+	 */
 	public void setMap(String fileName) {
 		path = Path.of(dir + File.separator + fileName);
 	}
 	
+	/**
+	 * Reads the file indicated by the path 
+	 * and saves it on an array of strings
+	 */
 	public void loadMap() {
 
 		try {
@@ -59,6 +76,11 @@ public class DefaultMap {
 		
 	}
 	
+	/**
+	 * Parse the strings containing the information 
+	 * of the map file and create the respective entities 
+	 * by saving them on the map
+	 */
 	public void createMap() {		
 		
 		for(int i = 0; i < map.getHeight(); i++) {
