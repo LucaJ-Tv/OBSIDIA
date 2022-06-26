@@ -9,13 +9,13 @@ import obsidia.players.Player;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
-public class TurnGame implements Turn{
+public class TurnManager implements Turn{
 	
 	private  GameMap map = new GameMap();
 	private  PlayerList player = new PlayerList();
 	private Coordinates coordinates;
 	
-	public TurnGame() {
+	public TurnManager() {
 		
 	}
 	
