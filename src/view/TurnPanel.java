@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import logic.TurnManager;
 import logic.ViewManager;
 import logic.entity.*;
 import logic.game.*;
@@ -36,7 +35,6 @@ public class TurnPanel {
 	//TODO: is Troops or Troop
 	private TroopsManager troopManager = new TroopsManager();
 	private ViewManager viewManager = new ViewManager();
-	private TurnManager turnManager = new TurnManager();
 	private PlayerManager playerManager = new PlayerManager();
 	private MapManager mapManager = new MapManager();
 	JLabel namePlayer = new Label("", 35);
@@ -57,7 +55,7 @@ public class TurnPanel {
 	
 	private JComponent addMapPanel() {
 		
-		JPanel mapPanel = new JPanel(new GridLayout(turnManager.mapHeight(),turnManager.mapWidth()));
+		JPanel mapPanel = new JPanel(new GridLayout(mapManager.mapHeight(),mapManager.mapWidth()));
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
@@ -66,8 +64,8 @@ public class TurnPanel {
 		};
 		
 		//create and add button in the Map cells
-        for (int i=0; i<turnManager.mapHeight(); i++){
-            for (int j=0; j<turnManager.mapWidth(); j++){
+        for (int i=0; i<mapManager.mapHeight(); i++){
+            for (int j=0; j<mapManager.mapWidth(); j++){
                 final JButton jb = new JButton();
                 //TODO: non mostra i castelli
                 jb.setIcon(new ImageIcon(
