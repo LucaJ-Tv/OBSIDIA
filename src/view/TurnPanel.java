@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import logic.ViewManager;
+import logic.TurnManager;
 import logic.entity.*;
 import logic.game.*;
 import obsidia.utilities.Coordinates;
@@ -30,17 +30,18 @@ public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
 	private Frame frame;
+	private TurnManager turnManager = new TurnManager();
 	private FarmManager farmManager = new FarmManager();
 	private TowerManager towerManager = new TowerManager();
 	//TODO: is Troops or Troop
 	private TroopsManager troopManager = new TroopsManager();
-	private ViewManager viewManager = new ViewManager();
 	private PlayerManager playerManager = new PlayerManager();
 	private MapManager mapManager = new MapManager();
-	JLabel namePlayer = new Label("", 35);
+	
+	private JLabel namePlayer = new Label("", 35);
 	private final int bDimension = 20;
 	private final int lDimension = 20;
-	Coordinates position;
+	private Coordinates position;
 	
 	public TurnPanel(Frame frame) {
 		
@@ -55,11 +56,13 @@ public class TurnPanel {
 	
 	private JComponent addMapPanel() {
 		
+		//TODO: prende riga e colonna nulli
 		JPanel mapPanel = new JPanel(new GridLayout(mapManager.mapHeight(),mapManager.mapWidth()));
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
 			position = cells.get(e.getSource());
+			System.out.println(position.toString());
 			
 		};
 		
@@ -161,7 +164,7 @@ public class TurnPanel {
         			"Quit the game ?",
         			"ENDGAME",
         			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        		this.viewManager.moveEnd();
+        		this.turnManager.playerDefeated(this.playerManager.namePlayer());
         });
 		
 		return southPanel;
