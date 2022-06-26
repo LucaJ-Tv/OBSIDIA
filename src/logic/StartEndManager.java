@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 
 import logic.game.MapManager;
 import logic.game.PlayerManager;
-import obsidia.map.DefaultMap;
 import obsidia.players.PlayerList;
 import view.Frame;
 import view.StartPanel;
@@ -58,7 +57,7 @@ public class StartEndManager {
 	//StartPanel -> TurnPanel
 	public void moveTurn(String map) {
 		clearFrame();
-		new DefaultMap(map);
+		mapManager.defaultMapLoad(map);
 		new TurnPanel();
 	}
 
