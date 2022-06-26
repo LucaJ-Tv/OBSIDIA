@@ -22,6 +22,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import logic.TurnManager;
+import logic.Manager;
 import logic.StartEndManager;
 import logic.entity.*;
 import logic.game.*;
@@ -35,14 +36,20 @@ public class TurnPanel {
 	private FarmManager farmManager = new FarmManager();
 	private TowerManager towerManager = new TowerManager();
 	//TODO: is Troops or Troop
-	private TroopsManager troopManager = new TroopsManager();
+	private Manager troopManager = new TroopsManager();
 	private PlayerManager playerManager = new PlayerManager();
 	private MapManager mapManager = new MapManager();
 	
+	
+	private JButton troop;
+	private JButton tower;
+	private JButton farm;
+	private JButton skip;
+	private JButton exit;
 	private JLabel namePlayer = new Label("", 35);
 	private final int bDimension = 20;
 	private final int lDimension = 20;
-	private Coordinates position;
+	//private Coordinates position;
 	
 	public TurnPanel() {
 		
@@ -61,9 +68,19 @@ public class TurnPanel {
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
-			position = cells.get(e.getSource());
-			System.out.println(position.toString());
+			System.out.println(e.getSource());
 			
+			
+			//controlla se la posizione cliccata è del Player corrente
+			if(this.mapManager.setClickedPosition(cells.get(e.getSource()))) {
+				
+				this.troop.setEnabled(this.troopManager.button());
+				this.tower.setEnabled(this.towerManager.button());
+				this.farm.setEnabled(this.farmManager.button());
+
+				setBorder(this.troopManager.borderActivate());
+				
+			}
 		};
 		
 		//create and add button in the Map cells
@@ -71,14 +88,18 @@ public class TurnPanel {
             for (int j=0; j<mapManager.mapWidth(); j++){
                 final JButton jb = new JButton();
                 //TODO: non mostra i castelli
-                jb.setIcon(new ImageIcon(
-                		this.mapManager.iconCell(new Coordinates(i,j))
-                		.getImage().getScaledInstance(70, 70, Image.SCALE_DEFAULT)));
-                jb.setBackground(Color.LIGHT_GRAY);
-                jb.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-                cells.put(jb, new Coordinates(i,j));
+                if(this.mapManager.isEnableCell(new Coordinates(i,j))) {
+                	jb.setVisible(false);
+                }else {
+                	jb.setIcon(new ImageIcon(
+                			this.mapManager.iconCell(new Coordinates(i,j))
+                			.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT)));
+                	jb.setBackground(this.mapManager.colorCell(new Coordinates(i,j)));
+                	jb.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                	jb.addActionListener(actionL);
+                }
                 mapPanel.add(jb);
-                jb.addActionListener(actionL);
+                cells.put(jb, new Coordinates(i,j));
             }
         }
 		
@@ -91,11 +112,11 @@ public class TurnPanel {
 		southPanel.setBackground(Color.DARK_GRAY);
 		
 		//JButton
-		JButton troop = new Button("TROOP", bDimension);
-		JButton tower = new Button("TOWER", bDimension);
-		JButton farm = new Button("FARM",bDimension);
-		JButton skip = new Button("SKIP PLAYER >>", bDimension);
-		JButton exit = new Button("END GAME", bDimension);
+		troop = new Button("TROOP", bDimension);
+		tower = new Button("TOWER", bDimension);
+		farm = new Button("FARM",bDimension);
+		skip = new Button("SKIP PLAYER >>", bDimension);
+		exit = new Button("END GAME", bDimension);
 		
 		//JLabel
 		final JLabel moneyLabel = new Label("MONEY:", lDimension);
@@ -164,7 +185,7 @@ public class TurnPanel {
         			"Quit the game ?",
         			"ENDGAME",
         			JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        		this.turnManager.playerDefeated(this.playerManager.namePlayer());
+        		this.turnManager.moveEnd();
         });
 		
 		return southPanel;
@@ -175,11 +196,14 @@ public class TurnPanel {
 		namePlayer.setForeground(this.playerManager.colorPlayer());
 	}
 	
-	public void setBorder(boolean bool, Set<Coordinates> c) {
+	public void setBorder(Set<Coordinates> c) {
+		System.out.println(c.toString());
 		this.cells.forEach((b,p) -> {
-			b.setBorder( (c.contains(p) && bool == true) ? 
+			b.setBorder( c.contains(p) ? 
 					BorderFactory.createLineBorder(Color.RED, 5) :
-					BorderFactory.createLineBorder(Color.BLACK, 5));
+					BorderFactory.createLineBorder(Color.BLACK, 1));
 		});
+		
+		/*c.forEach(v -> this.cells.);*/
 	}
 }
