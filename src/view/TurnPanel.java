@@ -40,7 +40,8 @@ public class TurnPanel {
 	private PlayerManager playerManager = new PlayerManager();
 	private MapManager mapManager = new MapManager();
 	
-	
+	private JPanel mapPanel;
+	private JPanel southPanel;
 	private JButton troop;
 	private JButton tower;
 	private JButton farm;
@@ -64,7 +65,7 @@ public class TurnPanel {
 	private JComponent addMapPanel() {
 		
 		//TODO: prende riga e colonna nulli
-		JPanel mapPanel = new JPanel(new GridLayout(mapManager.mapHeight(),mapManager.mapWidth()));
+		mapPanel = new JPanel(new GridLayout(mapManager.mapHeight(),mapManager.mapWidth()));
 		mapPanel.setBorder(new EmptyBorder(2,2,2,2));
 		
 		ActionListener actionL = e -> {
@@ -77,8 +78,10 @@ public class TurnPanel {
 				this.troop.setEnabled(this.troopManager.button());
 				this.tower.setEnabled(this.towerManager.button());
 				this.farm.setEnabled(this.farmManager.button());
+				southPanel.validate();
+				
 
-				setBorder(this.troopManager.borderActivate());
+				//setBorder(this.troopManager.borderActivate());
 				
 			}
 		};
@@ -108,7 +111,7 @@ public class TurnPanel {
 	
 	private JComponent addSouthPanel() {
 		
-		JPanel southPanel = new JPanel(new FlowLayout());
+		southPanel = new JPanel(new FlowLayout());
 		southPanel.setBackground(Color.DARK_GRAY);
 		
 		//JButton
@@ -160,15 +163,18 @@ public class TurnPanel {
         southPanel.add(balance);
         
         troop.addActionListener(e -> {
-			//this.troopManager.newTroop();
+			this.troopManager.newEntity();
+			mapPanel.validate();
 		});
         
         tower.addActionListener(e -> {
-			//this.towerManager.newTower();
+			this.towerManager.newEntity();
+			mapPanel.validate();
 		});
         
         farm.addActionListener(e -> {
-			//this.farmManager.newFarm();
+			this.farmManager.newEntity();
+			mapPanel.validate();
         	
 		});
         
