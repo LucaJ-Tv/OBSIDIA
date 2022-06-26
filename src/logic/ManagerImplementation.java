@@ -15,7 +15,7 @@ public abstract class ManagerImplementation implements Manager{
 	
 	protected static final GameMap map = new GameMap();
 	protected static final PlayerList ply = new PlayerList();;
-	protected Cells oldEntity;
+	protected static Cells oldEntity;
 	
 
 	private boolean matchOwner(Coordinates pos) {
@@ -33,10 +33,10 @@ public abstract class ManagerImplementation implements Manager{
 	@Override 
 	public boolean setClickedPosition(Coordinates pos) {
 		if(matchOwner(pos)) {
-			this.oldEntity = map.getEntity(pos);
+			oldEntity = map.getEntity(pos);
 			return true;
 		} else {
-			this.oldEntity = null;
+			oldEntity = null;
 			return false;
 		}
 	}
@@ -46,7 +46,7 @@ public abstract class ManagerImplementation implements Manager{
 
 	@Override
 	public String namePlayer() {
-		return "Luca";//null; TODO
+		return "";
 	}
 	
 	@Override

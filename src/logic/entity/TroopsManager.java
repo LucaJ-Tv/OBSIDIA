@@ -72,7 +72,7 @@ public class TroopsManager extends ManagerImplementation{
 	}
 	
 	protected boolean isBuildableCell(Cells entity) {
-		return (entity instanceof Troops || entity instanceof FreeCell);
+		return (oldEntity instanceof Troops || oldEntity instanceof FreeCell);
 	}
 	
 	
@@ -80,20 +80,20 @@ public class TroopsManager extends ManagerImplementation{
 
 	@Override
 	public boolean button() {
-		return (isBuildableCell(super.oldEntity) && super.enoughCoins(newTroop(oldEntity)));
+		return (isBuildableCell(oldEntity) && super.enoughCoins(newTroop(oldEntity)));
 	}
 	
 	@Override
 	public Set<Coordinates> borderActivate(){
 		if(oldEntity instanceof Troops) {
-			return allConquerable((Troops)super.oldEntity);
+			return allConquerable((Troops)oldEntity);
 		}			
 		return Collections.emptySet();	
 	}
 	
 	@Override
 	public void newEntity() {
-		Cells tr = newTroop(super.oldEntity);
+		Cells tr = newTroop(oldEntity);
 		ManagerImplementation.map.addEntity(tr);
 		ManagerImplementation.ply.addCoins(-tr.getCost());
 	}
@@ -104,6 +104,6 @@ public class TroopsManager extends ManagerImplementation{
 			ManagerImplementation.map.removePlayer(map.getOwner(pos));
 			ManagerImplementation.ply.removePlayer(map.getOwner(pos));
 		}
-		posConquest(pos, (Troops)super.oldEntity);
+		posConquest(pos, (Troops)oldEntity);
 	}
 }
