@@ -54,6 +54,15 @@ public class PlayerList {
 		return PLY.get(index).getColor();		
 	}
 	
+	public Color getColorName(final String name) {
+		for(Player p : PLY) {
+			if(p.getName() == name) {
+				return p.getColor();
+			}
+		}
+		return Color.LIGHT_GRAY;
+	}
+	
 	/**
 	 * @param coins
 	 * Set coins of the first Player in the list
