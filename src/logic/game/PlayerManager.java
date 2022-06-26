@@ -27,10 +27,12 @@ public class PlayerManager extends ManagerImplementation{
 		ply.addPlayer(new Player(name , color));
 	}
 	
+	@Override
 	public void nextPlayer() {
 		ply.nextPlayer();
 	}
 	
+	@Override
 	public boolean hasWinner() {
 		return ply.numberPlayer() == 1;
 	}

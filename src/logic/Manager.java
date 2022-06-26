@@ -21,6 +21,10 @@ public interface Manager {
 	public String namePlayer();
 	
 	public Color colorPlayer();
+	
+	public void nextPlayer();
+	
+	public boolean hasWinner();
 
 	
 	//ENTITY

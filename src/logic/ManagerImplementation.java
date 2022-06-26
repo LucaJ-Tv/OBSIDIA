@@ -60,7 +60,14 @@ public abstract class ManagerImplementation implements Manager{
 	
 	@Override
 	public void addPlayer(String name, Color color) {
-	};
+	}
+	
+	public void nextPlayer() {
+	}
+	
+	public boolean hasWinner() {
+		return false;
+	}
 	
 	
 	// ENTITIES
