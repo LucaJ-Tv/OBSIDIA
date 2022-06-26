@@ -17,10 +17,7 @@ public class TurnManager extends ViewManager{
 
 	//call when a troop move in a cell where is a Castle or click exit
 	public void playerDefeated(String name) {
-		//to chek that a player can't defeated himself
-		if(this.ply.getName() != name) {
-			ply.removePlayer(name);
-		}
+		ply.removePlayer(name);
 		
 		if(ply.numberPlayer() == 1) {
 			moveEnd();
