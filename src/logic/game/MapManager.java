@@ -1,5 +1,7 @@
 package logic.game;
 
+import java.awt.Color;
+
 import javax.swing.ImageIcon;
 
 import logic.ManagerImplementation;
@@ -33,6 +35,15 @@ public class MapManager extends ManagerImplementation{
 		return 	ManagerImplementation.map
 				.getEntity(pos)
 				.getIcon();
+	}
+	
+	public Color colorCell(Coordinates pos) {
+		return ManagerImplementation.ply
+				.getColorName(ManagerImplementation.map.getOwner(pos));
+	}
+	
+	public boolean isEnableCell(Coordinates pos) {
+		return ManagerImplementation.map.getOwner(pos) == null;
 	}
 	
 	@Override
