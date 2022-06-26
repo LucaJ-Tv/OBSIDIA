@@ -7,6 +7,7 @@ import java.nio.file.Path;
 
 import obsidia.entities.buildings.Castle;
 import obsidia.entities.cells.FreeCell;
+import obsidia.entities.troops.TroopOne;
 import obsidia.players.PlayerList;
 import obsidia.utilities.Coordinates;
 
@@ -20,8 +21,8 @@ import obsidia.utilities.Coordinates;
  */
 public class DefaultMap {
 	
-	private static final int CASTLE = Character.getNumericValue('A');
-	private static final int TERRAIN = Character.getNumericValue('0');
+	private static final int CASTLE = Character.getNumericValue('0');
+	private static final int TERRAIN = Character.getNumericValue('A');
 	private static final int NULL = Character.getNumericValue('.');
 	
 	private final String dir = "data";
@@ -82,7 +83,7 @@ public class DefaultMap {
 	 * by saving them on the map
 	 */
 	public void createMap() {		
-		
+
 		for(int i = 0; i < map.getHeight(); i++) {
 			for (int j = 0; j< map.getWidth(); j++) {
 				
@@ -94,12 +95,13 @@ public class DefaultMap {
 					
 				} else if(entity >= DefaultMap.TERRAIN && entity < (DefaultMap.TERRAIN + ply.numberPlayer())){
 					
-					map.addEntity(new FreeCell(ply.getNameIndex(entity), new Coordinates(i,j))); 
+					//map.addEntity(new FreeCell(ply.getNameIndex(entity - DefaultMap.TERRAIN), new Coordinates(i,j))); 
+					map.addEntity(new TroopOne(ply.getNameIndex(entity - DefaultMap.TERRAIN), new Coordinates(i,j))); 
 					
 				} else if(entity == DefaultMap.NULL) {
-					map.addEntity(new FreeCell(".", new Coordinates(i,j)));
+					map.addEntity(new FreeCell(null, new Coordinates(i,j)));
 				} else {					
-					map.addEntity(new FreeCell("x", new Coordinates(i, j)));
+					map.addEntity(new FreeCell("", new Coordinates(i, j)));
 				} 
 			}
 		}
