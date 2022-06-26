@@ -9,14 +9,13 @@ import java.util.NoSuchElementException;
 import logic.game.MapManager;
 import obsidia.map.DefaultMap;
 import obsidia.players.PlayerList;
-import view.EndPanel;
 import view.Frame;
 import view.StartPanel;
 import view.TurnPanel;
 
 public class ViewManager {
 	
-	private static Frame frame = new Frame();
+	protected static Frame frame = new Frame();
 	private static PlayerList ply = new PlayerList();
 	private static MapManager mapManager = new MapManager();
 	
@@ -48,7 +47,7 @@ public class ViewManager {
 	}
 	
 	//between a change screen clean the frame
-	private void clearFrame() {
+	protected void clearFrame() {
 		frame.setVisible(false);
 		frame.getContentPane().removeAll();
 	}
@@ -63,12 +62,6 @@ public class ViewManager {
 	//exit from the game
 	public void exitGame() {
     	System.exit(0);
-	}
-	
-	//exit from the turn
-	public void moveEnd() {
-		clearFrame();
-		new EndPanel(frame);
 	}
 	
 	//return a color of listColor
