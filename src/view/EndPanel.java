@@ -8,14 +8,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import logic.Manager;
-import logic.ViewManager;
+import logic.StartEndManager;
 import logic.game.PlayerManager;
 
 public class EndPanel {
 	
-	private final Frame frame = ViewManager.frame;
+	private final Frame frame = StartEndManager.frame;
 	private Manager logic = new PlayerManager();
-	private ViewManager viewManager = new ViewManager();
+	private StartEndManager viewManager = new StartEndManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
 	public EndPanel() {

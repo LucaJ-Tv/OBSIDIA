@@ -22,7 +22,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import logic.TurnManager;
-import logic.ViewManager;
+import logic.StartEndManager;
 import logic.entity.*;
 import logic.game.*;
 import obsidia.utilities.Coordinates;
@@ -30,7 +30,7 @@ import obsidia.utilities.Coordinates;
 public class TurnPanel {
 
 	private final Map<JButton,Coordinates> cells = new HashMap<>();
-	private Frame frame = ViewManager.frame;
+	private Frame frame = StartEndManager.frame;
 	private TurnManager turnManager = new TurnManager();
 	private FarmManager farmManager = new FarmManager();
 	private TowerManager towerManager = new TowerManager();

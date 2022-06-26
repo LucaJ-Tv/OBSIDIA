@@ -14,13 +14,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import logic.ViewManager;
+import logic.StartEndManager;
 
 public class StartPanel {
 	
 	//TODO: settings can be change in choose map
-	private Frame frame = ViewManager.frame;
-	private ViewManager viewManager = new ViewManager();
+	private Frame frame = StartEndManager.frame;
+	private StartEndManager viewManager = new StartEndManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 
 	private int countInsertPlayer = 0;

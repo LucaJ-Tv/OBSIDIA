@@ -4,7 +4,7 @@ import logic.game.*;
 import obsidia.players.PlayerList;
 import view.EndPanel;
 
-public class TurnManager extends ViewManager{
+public class TurnManager extends StartEndManager{
 	
 	private  MapManager map = new MapManager();
 	private  PlayerList ply = new PlayerList();
