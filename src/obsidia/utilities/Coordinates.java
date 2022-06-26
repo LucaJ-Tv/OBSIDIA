@@ -1,5 +1,6 @@
 package obsidia.utilities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -68,7 +69,7 @@ public class Coordinates {
 	 */
 	public Coordinates[] near(final int distance, final int mapWidth, final int mapHeight) {
 		
-		Set<Integer> set = Set.of(0);
+		Set<Integer> set = new HashSet<>();
 		Coordinates[] cords = {};
 		int nx;
 		int ny;
