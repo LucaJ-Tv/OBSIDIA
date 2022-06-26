@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import logic.game.MapManager;
 import obsidia.map.DefaultMap;
-import obsidia.map.GameMap;
 import obsidia.players.PlayerList;
 import view.EndPanel;
 import view.Frame;
@@ -18,7 +18,7 @@ public class ViewManager {
 	
 	private static Frame frame = new Frame();
 	private static PlayerList ply = new PlayerList();
-	private static GameMap map = new GameMap();
+	private static MapManager mapManager = new MapManager();
 	
 	private final List<Color> listColor = Arrays.asList(
 		new Color(200,15,15),
@@ -35,6 +35,7 @@ public class ViewManager {
 	}
 	
 	public void inizGame(boolean cleanPlayerList) {
+		mapManager.cleanMap();
 		//if you want restart with the same player pass cleanPlayerList = false
 		if(cleanPlayerList) {
 			clearFrame();
@@ -44,7 +45,6 @@ public class ViewManager {
 		}else {
 			moveTurn("Map2");
 		}
-		map.cleanMap();
 	}
 	
 	//between a change screen clean the frame
