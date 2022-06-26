@@ -10,7 +10,7 @@ public class TurnManager extends StartEndManager{
 	private  PlayerList ply = new PlayerList();
 	
 	//exit from the turn
-	private void moveEnd() {
+	public void moveEnd() {
 		clearFrame();
 		new EndPanel();
 	}
