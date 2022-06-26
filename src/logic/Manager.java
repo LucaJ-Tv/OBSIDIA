@@ -14,8 +14,6 @@ public interface Manager {
 
 	// PLAYERS
 	
-	public void insertPlayer(String name, Color color);
-	
 	public void coinTurnUpdate();
 	
 	public void addPlayer(String name, Color color);

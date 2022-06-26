@@ -83,7 +83,7 @@ public class StartPanel {
         		tempColor = this.viewManager.getColor(count);
         		count++;
         		tempLabel = new JLabel((count) + ". " + nameInser.getText());
-        		this.manager.insertPlayer(nameInser.getText(), tempColor);
+        		this.manager.addPlayer(nameInser.getText(), tempColor);
         		tempLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         		tempLabel.setForeground(tempColor);
         		

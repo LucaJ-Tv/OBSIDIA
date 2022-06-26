@@ -43,10 +43,6 @@ public abstract class ManagerImplementation implements Manager{
 	
 	
 	// PLAYERS	
-	
-	@Override
-	public void insertPlayer(String name, Color color) {
-	}
 
 	@Override
 	public String namePlayer() {

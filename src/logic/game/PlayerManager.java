@@ -6,11 +6,6 @@ import logic.ManagerImplementation;
 import obsidia.players.Player;
 
 public class PlayerManager extends ManagerImplementation{
-
-	@Override
-	public void insertPlayer(String name, Color color) {
-		ply.addPlayer(new Player(name, color));
-	}
 	
 	@Override
 	public String namePlayer() {
