@@ -12,7 +12,7 @@ public class TurnManager extends ViewManager{
 	//exit from the turn
 	private void moveEnd() {
 		clearFrame();
-		new EndPanel(frame);
+		new EndPanel();
 	}
 
 	//call when a troop move in a cell where is a Castle or click exit

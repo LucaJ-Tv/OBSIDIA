@@ -13,13 +13,12 @@ import logic.game.PlayerManager;
 
 public class EndPanel {
 	
-	private final Frame frame ;
+	private final Frame frame = ViewManager.frame;
 	private Manager logic = new PlayerManager();
 	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 	
-	public EndPanel(Frame frame) {
-		this.frame = frame;
+	public EndPanel() {
 		setFrame();		
 	}
 	

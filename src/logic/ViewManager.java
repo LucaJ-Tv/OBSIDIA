@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import logic.game.MapManager;
+import logic.game.PlayerManager;
 import obsidia.map.DefaultMap;
 import obsidia.players.PlayerList;
 import view.Frame;
@@ -15,8 +16,9 @@ import view.TurnPanel;
 
 public class ViewManager {
 	
-	protected static Frame frame = new Frame();
+	public static Frame frame;
 	private static PlayerList ply = new PlayerList();
+	private static PlayerManager playerManager = new PlayerManager();
 	private static MapManager mapManager = new MapManager();
 	
 	private final List<Color> listColor = Arrays.asList(
@@ -30,6 +32,7 @@ public class ViewManager {
 		);
 	
 	public static void main(String[] args) {
+		frame = new Frame();
 		new ViewManager().inizGame(true);
 	}
 	
@@ -40,7 +43,7 @@ public class ViewManager {
 			clearFrame();
 			Collections.shuffle(listColor);
 			ply.removeAllPlayer();
-			new StartPanel(frame);
+			new StartPanel();
 		}else {
 			moveTurn("Map2");
 		}
@@ -56,12 +59,17 @@ public class ViewManager {
 	public void moveTurn(String map) {
 		clearFrame();
 		new DefaultMap(map);
-		new TurnPanel(frame);
+		new TurnPanel();
 	}
 
 	//exit from the game
 	public void exitGame() {
     	System.exit(0);
+	}
+	
+	//add a new Player in Playerlist
+	public void addNewPlayer(String name, Color color) {
+		playerManager.addPlayer(name, color);
 	}
 	
 	//return a color of listColor

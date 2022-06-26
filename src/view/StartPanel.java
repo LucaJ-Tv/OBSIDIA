@@ -15,27 +15,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import logic.ViewManager;
-import logic.game.PlayerManager;
-import logic.Manager;
 
 public class StartPanel {
 	
 	//TODO: settings can be change in choose map
-	private Frame frame;
-	private final Manager manager;
+	private Frame frame = ViewManager.frame;
 	private ViewManager viewManager = new ViewManager();
 	private GridBagConstraints gbc = new GridBagConstraints();
 
-	private int count = 0;
+	private int countInsertPlayer = 0;
 	private final int NMAXPLAYER = 5;
 	
 	private final int bDimension = 40;
-	JButton bStart;
+	private JButton bStart;
     
-	public StartPanel(Frame frame) {
-		
-		this.frame = frame;
-		this.manager = new PlayerManager();
+	public StartPanel() {
 		
         frame.setFrameLayout(new GridBagLayout());
         
@@ -80,10 +74,10 @@ public class StartPanel {
         	Color tempColor;
         	if(!nameInser.getText().isBlank()) {
         		
-        		tempColor = this.viewManager.getColor(count);
-        		count++;
-        		tempLabel = new JLabel((count) + ". " + nameInser.getText());
-        		this.manager.addPlayer(nameInser.getText(), tempColor);
+        		tempColor = this.viewManager.getColor(countInsertPlayer);
+        		countInsertPlayer++;
+        		tempLabel = new JLabel((countInsertPlayer) + ". " + nameInser.getText());
+        		this.viewManager.addNewPlayer(nameInser.getText(), tempColor);
         		tempLabel.setFont(new Font(Font.SERIF, Font.PLAIN, 20));
         		tempLabel.setForeground(tempColor);
         		
@@ -93,12 +87,12 @@ public class StartPanel {
         		nameInser.setText("");
         		
         		//check min number of Player
-        		if(count >= 2) {
+        		if(countInsertPlayer >= 2) {
         			bStart.setEnabled(true);
         		}
         		
         		//check max number of Player
-        		if( count >= NMAXPLAYER) {
+        		if( countInsertPlayer >= NMAXPLAYER) {
         			bAddPlayer.setEnabled(false);
         			bAddPlayer.setBackground(Color.DARK_GRAY);
         			nameInser.setEnabled(false);
